@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laraspace - Laravel Admin</title>
+    <title>SAM K TRAVEL & TOUR  - Administration</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
     <script src="{{asset('/assets/admin/js/core/pace.js')}}"></script>
     <link href="{{ mix('/assets/admin/css/laraspace.css') }}" rel="stylesheet" type="text/css">
@@ -23,6 +23,7 @@
         @yield('content')
 
         @include('admin.layouts.partials.footer')
+        @yield('content')
         @if(config('laraspace.skintools'))
             @include('admin.layouts.partials.skintools')
         @endif

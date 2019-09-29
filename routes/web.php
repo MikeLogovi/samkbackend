@@ -25,7 +25,10 @@ Route::group([
     'prefix' => 'admin',
 //    'middleware' => 'admin'
 ], function () {
-
+    //Sliders
+    Route::get('/sliders',[
+        'as'=>'admin.sliders','uses'=>'SlidersController@index',
+    ]);
     // Dashboard
     //----------------------------------
 
