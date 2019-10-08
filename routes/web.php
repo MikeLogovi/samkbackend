@@ -12,6 +12,13 @@ Route::get('/', [
     'as' => 'home', 'uses' => 'FrontendController@home'
 ]);
 
+
+ //Portfolio categories
+
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -26,9 +33,96 @@ Route::group([
 //    'middleware' => 'admin'
 ], function () {
     //Sliders
-    Route::get('/sliders',[
-        'as'=>'admin.sliders','uses'=>'SlidersController@index',
+   
+    Route::resource('sliders','SliderController',[
+        "names"=>[
+            "index"=>"sliders.index",
+            "store"=>"sliders.store",
+            "create"=>"sliders.create",
+            "edit"=>"sliders.edit",
+            "update"=>"sliders.update",
+            "destroy"=>"sliders.delete"
+        ]
+       
     ]);
+    Route::resource('portfolio_categories','PortfolioCategoryController',[
+        "names"=>[
+            "index"=>"portfolio_categories.index",
+            "store"=>"portfolio_categories.store",
+            "create"=>"portfolio_categories.create",
+            "edit"=>"portfolio_categories.edit",
+            "update"=>"portfolio_categories.update",
+            "destroy"=>"portfolio_categories.delete"
+        ],
+        
+    ]);
+    Route::resource('portfolio_categories.portfolio_images','PortfolioImageController',[
+        "names"=>[
+            "index"=>"portfolio_images.index",
+            "store"=>"portfolio_images.store",
+            "create"=>"portfolio_images.create",
+            "edit"=>"portfolio_images.edit",
+            "update"=>"portfolio_images.update",
+            "destroy"=>"portfolio_images.delete"
+        ],
+        
+    ]);
+    //Events
+    Route::resource('events','EventController',[
+        "names"=>[
+            "index"=>"events.index",
+            "store"=>"events.store",
+            "create"=>"events.create",
+            "edit"=>"events.edit",
+            "update"=>"events.update",
+            "destroy"=>"events.delete"
+        ],
+    ]);
+    Route::resource('videos','VideoController',[
+        "names"=>[
+            "index"=>"videos.index",
+            "store"=>"videos.store",
+            "create"=>"videos.create",
+            "edit"=>"videos.edit",
+            "update"=>"videos.update",
+            "destroy"=>"videos.delete"
+        ],
+    ]);
+    Route::resource('teams','TeamController',[
+        "names"=>[
+            "index"=>"teams.index",
+            "store"=>"teams.store",
+            "create"=>"teams.create",
+            "edit"=>"teams.edit",
+            "update"=>"teams.update",
+            "destroy"=>"teams.delete"
+        ],
+    ]);
+    Route::resource('comments','CommentController',[
+        "names"=>[
+            "index"=>"comments.index",
+            "store"=>"comments.store",
+            "create"=>"comments.create",
+            "edit"=>"comments.edit",
+            "update"=>"comments.update",
+            "destroy"=>"comments.delete"
+        ],
+    ]);
+    Route::resource('partners','PartnerController',[
+        "names"=>[
+            "index"=>"partners.index",
+            "store"=>"partners.store",
+            "create"=>"partners.create",
+            "edit"=>"partners.edit",
+            "update"=>"partners.update",
+            "destroy"=>"partners.delete"
+        ],
+    ]);
+
+
+
+
+
     // Dashboard
     //----------------------------------
 

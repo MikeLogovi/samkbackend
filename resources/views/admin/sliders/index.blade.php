@@ -1,5 +1,5 @@
 @extends('admin.layouts.layout-basic')
-
+@inject('file','App\Services\File')
 @section('content')
     <div class="main-content">
         <div class="page-header">
@@ -8,70 +8,52 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-xl-6 mb-4">
-                        <h5 class="section-semi-title">Hover Table</h5>
-
-                        <p>To use this just apply
-                            <mark>.table</mark>
-                            ,
-                            <mark>.table-hover</mark>
-                            classes to your table element to make it hoverable.
-                        </p>
+                    <div class="col-xl-12 mb-4">
+                       <a class="btn btn-success" href="{{ route('sliders.create')}}">CREATE NEW SLIDER</a><br/><br/>
+                       <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Product Name</th>
-                                <th>Status</th>
-                                <th>Price</th>
-                                <th>MRP</th>
+                                <th>Media</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Updated at</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Colgate Toothpaste</td>
-                                <td><span class="label label-success">in stock</span></td>
-                                <td>$5</td>
-                                <td>$6</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Pink T-Shirt</td>
-                                <td><span class="label label-danger">out of stock</span></td>
-                                <td>$20</td>
-                                <td>$40</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Nike Running Shoes</td>
-                                <td><span class="label label-success">in stock</span></td>
-                                <td>$100</td>
-                                <td>$120</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Reebok Casual Shoes</td>
-                                <td><span class="label label-danger">out of stock</span></td>
-                                <td>$70</td>
-                                <td>$80</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Titan Raga Premium Watch</td>
-                                <td><span class="label label-success">in stock</span></td>
-                                <td>$100</td>
-                                <td>$120</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Philips Hair Remover</td>
-                                <td><span class="label label-danger">out of stock</span></td>
-                                <td>$50</td>
-                                <td>$70</td>
-                            </tr>
+                             @foreach($sliders as $slider)
+                             <tr>
+                                 <td>
+                                     @if($file->isImage($slider->source))
+                                       <img src="{{asset('/storage/'.$slider->source)}}" width="250" height="150">
+                                     @elseif($file->isVideo($slider->source))
+                                        <iframe width="250" height="150" src="{{asset('/storage/'.$slider->source)}}" autoplay="false" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+                                     @endif
+                                 </td>
+                                 <td>{{$slider->title}}</td>
+                                 <td>{{$slider->description}}</td>
+                                 <td>{{$slider->updated_at}}</td>
+                                 <td>{!! nl2br(e($slider->description)) !!}</td>
+                                 <td>
+                                     <div class=row>
+                                         <div class=col-xs-4>
+                                            <a class="btn btn-warning" href="{{ route('sliders.edit',$slider)}}">UPDATE</a>
+                                         </div><br><br>
+                                         <div class=col-xs-4 col-xs-offest-2>
+                                            <form method='POST' action="{{route('sliders.delete',$slider->id)}}">
+                                                    {{csrf_field()}}
+                                                    {{method_field('DELETE')}}
+                                                <button type='submit' class="btn btn-danger">DELETE</button>
+                                            </form>                                           
+                                         </div>
+                                     </div>  
+                                 </td>
+                             </tr>
+                             @endforeach
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>

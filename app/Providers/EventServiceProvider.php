@@ -11,8 +11,44 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        //Sliders
+        'App\Events\SliderCrud' => [
+            'App\Listeners\SliderCrudListener',
+        ],
+        //PortfolioCategory
+        'App\Events\PortfolioCategoryCrud' => [
+            'App\Listeners\PortfolioCategoryCrudListener',
+        ],
+        //PortfolioImage
+         'App\Events\PortfolioImageCrud' => [
+            'App\Listeners\PortfolioImageCrudListener',
+        ],
+        //Events
+        'App\Events\EventCrud' => [
+            'App\Listeners\EventCrudListener',
+        ],
+        //Comments
+        'App\Events\CommentCrud' => [
+            'App\Listeners\CommentCrudListener',
+        ],
+        //Parteners
+        'App\Events\PartenersCrud' => [
+            'App\Listeners\PartenersCrudListener',
+        ],
+        //Video
+        'App\Events\VideoCrud' => [
+            'App\Listeners\VideoCrudListener',
+        ],
+         //Team
+         'App\Events\TeamCrud' => [
+            'App\Listeners\TeamCrudListener',
+        ],
+         //website
+         'App\Events\Socialite' => [
+            'App\Listeners\Socialiteistener',
+        ],
+         'App\Events\Website' => [
+            'App\Listeners\WebsiteListener',
         ],
     ];
 

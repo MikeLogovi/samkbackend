@@ -41,10 +41,128 @@ return [
         ],
         [
             'title' => 'Sliders',
-            'link' => '/admin/sliders',
-            'active' => 'admin/sliders*',
-            'icon' => 'icon-fa icon-fa-th-large',
+            'link' => '#',
+            'active' => '/admin/sliders*',
+            'icon' =>"fa fa-sliders",
+            'children'=>[
+                [
+                    'title' => 'New Slider',
+                    'link' => '/admin/sliders/create',
+                    'active' => '/admin/sliders*',
+                ],
+                [
+                    'title' => 'Sliders list',
+                    'link' => '/admin/sliders',
+                    'active' => '/admin/sliders*',
+                ],
+            ]
         ],
+        [
+            'title' => 'Portfolio',
+            'link' => '#',
+            'active' => '/admin/portfolio*',
+            'icon' =>"fa fa-picture-o",
+            'children'=>[
+                [
+                    'title' => 'Category',
+                    'link'=>'#',
+                    'active' => 'admin/portfolio_categories*',
+                    'children'=>[
+                        [
+                            'title' => 'Create new category',
+                            'link'=>'#',
+                            'active' => 'admin/portfolio_categories/create'
+                        ],
+                        [
+                            'title' => 'Categories list',
+                            'link'=>'#',
+                            'active' => 'admin/portfolio_categories*',
+                        ],
+                    ]
+                ],
+                
+            ]
+        ],
+        [
+            'title' => 'Videos',
+            'link' => '/admin/videos',
+            'active' => '/admin/videos*',
+            'icon' =>"fa fa-video-camera",
+            'children'=>[
+                [
+                    'title' => 'New video',
+                    'link' => '/admin/videos/create',
+                    'active' => '/admin/videos*',
+                ],
+                [
+                    'title' => 'Videos list',
+                    'link' => '/admin/videos',
+                    'active' => '/admin/videos*',
+                ],
+            ]
+        ],
+        [
+            'title' => 'Events',
+            'link' => '#',
+            'active' => '/admin/events*',
+            'icon' =>"fa fa-cc",
+            'children'=>[
+                [
+                    'title' => 'New event',
+                    'link' => '/admin/events/create',
+                    'active' => '/admin/events*',
+                ],
+                [
+                    'title' => 'Events list',
+                    'link' => '/admin/events',
+                    'active' => '/admin/events*',
+                ],
+            ]
+        ],
+        [
+            'title' => 'Comments',
+            'link' => '/admin/comments',
+            'active' => '/admin/comments*',
+            'icon' =>"fa fa-comment",
+            'children'=>[
+                [
+                    'title' => 'New comment',
+                    'link' => '/admin/comments/create',
+                    'active' => '/admin/comments*',
+                ],
+                [
+                    'title' => 'Comments list',
+                    'link' => '/admin/comments',
+                    'active' => '/admin/comments*',
+                ],
+            ]
+        ],
+        [
+            'title' => 'Partners',
+            'link' => '/admin/partners',
+            'active' => '/admin/partners*',
+            'icon' =>"fa fa-handshake-o",
+            'children'=>[
+                [
+                    'title' => 'New partner',
+                    'link' => '/admin/partners/create',
+                    'active' => '/admin/partners*',
+                ],
+                [
+                    'title' => 'partners list',
+                    'link' => '/admin/partners',
+                    'active' => '/admin/partners*',
+                ],
+            ]
+        ],
+        [
+            'title' => 'Profile',
+            'link' => '/admin/partners',
+            'active' => '/admin/partners*',
+            'icon' =>"fa fa-user",
+            
+        ],
+       /*
         [
             'title' => 'Basic UI',
             'link' => '#',
@@ -551,6 +669,6 @@ return [
                     'icon' => 'icon-fa icon-fa-mail',
                 ],
             ]
-        ]
+        ]*/
     ]
 ];
