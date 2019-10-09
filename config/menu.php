@@ -70,12 +70,12 @@ return [
                     'children'=>[
                         [
                             'title' => 'Create new category',
-                            'link'=>'#',
-                            'active' => 'admin/portfolio_categories/create'
+                            'link'=>'admin/portfolio_categories/create',
+                            'active' => 'admin/portfolio_categories*'
                         ],
                         [
                             'title' => 'Categories list',
-                            'link'=>'#',
+                            'link'=>'admin/portfolio_categories',
                             'active' => 'admin/portfolio_categories*',
                         ],
                     ]
@@ -162,7 +162,7 @@ return [
             'icon' =>"fa fa-user",
             
         ],
-       /*
+        /*
         [
             'title' => 'Basic UI',
             'link' => '#',
@@ -456,7 +456,7 @@ return [
                     'active' => 'admin/maintenance',
                 ],
             ]
-        ],
+        ],*/
         [
             'title' => 'Users',
             'link' => '#',
@@ -474,7 +474,7 @@ return [
                     'active' => 'admin/users/*',
                 ]
             ]
-        ],
+        ],/*
         [
             'title' => 'Todo App',
             'link' => '/admin/todos',
@@ -500,9 +500,9 @@ return [
             ]
         ],
     ],
-
+     */
     // HORIZONTAL MENU LAYOUT -  MENU
-
+    /*
     'horizontal' => [
         [
             'title' => 'Dashboard',

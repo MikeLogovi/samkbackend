@@ -6,3 +6,18 @@
     text-align:center;
     width:150px;
 }
+.custom-input{
+    cursor:pointer;
+    display:inline-block;
+    background:transparent;
+    text-align:center;
+    width:150px; 
+    padding:5px 5px;
+    border:3px solid #43A047;
+    color:#43A047;
+    box-shadow:0 0 3px black;
+}
+.dd-none{
+    width:0.1px;
+    height:0.1px;
+}

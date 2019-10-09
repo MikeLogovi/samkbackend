@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartnersTable extends Migration
+class AddBrandImageToVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreatePartnersTable extends Migration
      */
     public function up()
     {
-        Schema::create('partners', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->unique();
-            $table->string('source');
-            $table->string('slug');
-            $table->timestamps();
+        Schema::table('videos', function (Blueprint $table) {
+           $table->string('brand_image');
         });
     }
 
@@ -29,6 +25,8 @@ class CreatePartnersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('partners');
+        Schema::table('videos', function (Blueprint $table) {
+            //
+        });
     }
 }

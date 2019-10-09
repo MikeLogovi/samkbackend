@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class PortfolioCategory extends Model
 {   use SlugRoutable;
 	protected $fillable=['name','slug'];
-    public function images(){
+    public function portfolio_images(){
     	return $this->hasMany(PortfolioImage::class);
     }
 }

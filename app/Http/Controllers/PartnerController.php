@@ -84,6 +84,7 @@ class PartnerController extends Controller
     public function update(Request $request, Partner $partner)
     {
         if(!empty($request->name)){
+            $this->validate($request,['name'=>'unique:partners']);
             $partner->name=$request->name;
          }
         

@@ -35,11 +35,11 @@ class PortfolioImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PortfolioImageRequest $request)
+    public function store(PortfolioImageRequest $request,PortfolioCategory $portfolioCategory,PortfolioImage $portfolioImage)
     {
         if($request->hasfile('source')&& $request->file('source')->isValid()){
             $path=fileUpload($request->file('source'),'portfolio');
-            PortfolioImage::create(['title'=>$request->title,'source'=>$path]);
+            PortfolioImage::create(['portfolio_category_id'=>$portfolioCategory->id,'title'=>$request->title,'source'=>$path]);
             event(new PortfolioImageCrud('Image created successfully'));
         }
         return redirect(route('portfolio_categories.index'));
@@ -75,14 +75,20 @@ class PortfolioImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PortfolioImage $portfolioImage)
+    public function update(Request $request,PortfolioImage $portfolioImage)
     {
         if(!empty($request->title)){
+            $this->validate($request,[
+                'title'=>'unique:portfolio_images'
+            ]);
             $portfolioImage->title=$request->title;
         }
          if(!empty($request->source) && $request->hasFile('source') && $request->file('source')->isValid()){
+             $this->validate($request,[
+                 'source'=>'file|image'
+             ]);
              $path=unlinkAndUpload($request->file('source'),'portfolio');
-             $slider->source=$path;
+             $portfolioImage->source=$path;
          }
          
          $portfolioImage->save();

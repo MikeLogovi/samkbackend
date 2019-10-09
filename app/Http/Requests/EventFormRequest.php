@@ -24,7 +24,11 @@ class EventFormRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'name'=>'required|unique:events',
+            'description'=>'required',
+            'price'=>'required|between:0,1000000',
+            'event_date'=>'required|date',
+            'source'=>'file|image'
         ];
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class PortfolioImage extends Model
 {   use SlugRoutable;
 	protected $guarded=[];
-    public function category(){
+    public function portfolio_category(){
     	return $this->belongTo(PortfolioCategory::class);
     }
 }

@@ -40,7 +40,7 @@ Route::group([
             "store"=>"sliders.store",
             "create"=>"sliders.create",
             "edit"=>"sliders.edit",
-            "update"=>"sliders.update",
+            "up"=>"sliders.up",
             "destroy"=>"sliders.delete"
         ]
        
@@ -51,7 +51,7 @@ Route::group([
             "store"=>"portfolio_categories.store",
             "create"=>"portfolio_categories.create",
             "edit"=>"portfolio_categories.edit",
-            "update"=>"portfolio_categories.update",
+            "up"=>"portfolio_categories.up",
             "destroy"=>"portfolio_categories.delete"
         ],
         
@@ -62,7 +62,7 @@ Route::group([
             "store"=>"portfolio_images.store",
             "create"=>"portfolio_images.create",
             "edit"=>"portfolio_images.edit",
-            "update"=>"portfolio_images.update",
+            "up"=>"portfolio_images.up",
             "destroy"=>"portfolio_images.delete"
         ],
         
@@ -74,7 +74,7 @@ Route::group([
             "store"=>"events.store",
             "create"=>"events.create",
             "edit"=>"events.edit",
-            "update"=>"events.update",
+            "up"=>"events.up",
             "destroy"=>"events.delete"
         ],
     ]);
@@ -84,7 +84,7 @@ Route::group([
             "store"=>"videos.store",
             "create"=>"videos.create",
             "edit"=>"videos.edit",
-            "update"=>"videos.update",
+            "up"=>"videos.up",
             "destroy"=>"videos.delete"
         ],
     ]);
@@ -94,7 +94,7 @@ Route::group([
             "store"=>"teams.store",
             "create"=>"teams.create",
             "edit"=>"teams.edit",
-            "update"=>"teams.update",
+            "up"=>"teams.up",
             "destroy"=>"teams.delete"
         ],
     ]);
@@ -104,7 +104,7 @@ Route::group([
             "store"=>"comments.store",
             "create"=>"comments.create",
             "edit"=>"comments.edit",
-            "update"=>"comments.update",
+            "up"=>"comments.up",
             "destroy"=>"comments.delete"
         ],
     ]);
@@ -114,7 +114,7 @@ Route::group([
             "store"=>"partners.store",
             "create"=>"partners.create",
             "edit"=>"partners.edit",
-            "update"=>"partners.update",
+            "up"=>"partners.up",
             "destroy"=>"partners.delete"
         ],
     ]);

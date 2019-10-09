@@ -7,4 +7,5 @@ trait Slugable{
             $slider->slug=str_slug($slider->title);
         });
     }
+   
 }

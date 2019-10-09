@@ -85,13 +85,15 @@ class SliderController extends Controller
     {   //dd('What the fuck');
         
         if(!empty($request->title)){
+            $this->validate($request,[
+                'title'=>'unique:sliders'
+            ]);
            $slider->title=$request->title;
         }
         if(!empty($request->description)){
             $slider->description=$request->description;
         }
         if(!empty($request->source) && $request->hasFile('source') && $request->file('source')->isValid()){
-            
             $this->validate($request,['source'=>'mimes:mp4,avi,mpeg,quicktime,jpeg,bmp,png,jpg']);
             $path=unlinkAndUpload($request->file('source'),'sliders');
             $slider->source=$path;

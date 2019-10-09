@@ -10,6 +10,7 @@ $factory->define(Video::class, function (Faker $faker) {
     return [
         'title'=>$name,
         'description'=>$faker->text,
+        'brand_image'=>'uploads/videos/img'.rand(1,3).'.mp4',
         'source'=>'uploads/videos/video'.rand(1,3).'.mp4',
         'slug'=>str_slug($name)
 

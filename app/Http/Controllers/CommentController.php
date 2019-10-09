@@ -61,7 +61,7 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Comment $comment)
-    {
+    {   
         return view('admin.comments.show',compact('comment'));
     }
 
@@ -72,7 +72,7 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Comment $comment)
-    {
+    {  
         return view('admin.comments.edit',compact('comment'));
     }
 
@@ -95,7 +95,10 @@ class CommentController extends Controller
              $comment->comment=$request->comment;
          }
          if(!empty($request->source) && $request->hasFile('source') && $request->file('source')->isValid()){
-             $path=unlinkAndUpload($request->file('source'),'comments');
+            $this->validate($request,[
+                'source'=>'file|image|mimes:png,jpeg,jpg,gif,bmp'
+            ]) ;
+            $path=unlinkAndUpload($request->file('source'),'comments');
              $comment->source=$path;
          }
          

@@ -26,7 +26,8 @@ class VideoFormRequest extends FormRequest
         return [
             'title'=>'required|min:4|unique:videos',
             'description'=>'required',
-            'source'=>'required|file|mimetypes:video/avi,video/mpeg,video/quicktime'
+            'source'=>'required',
+            'brand_image'=>'required|file|image'
         ];
     }
 }

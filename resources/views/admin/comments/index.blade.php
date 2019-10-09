@@ -1,5 +1,5 @@
 @extends('admin.layouts.layout-basic')
-@inject('file','App\Services\File')
+
 @section('content')
     <div class="main-content">
         <div class="page-header">
@@ -9,8 +9,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12 mb-4">
-                       <a class="btn btn-success" href="{{ route('comments.create')}}">CREATE NEW COMMENT</a><br/><br/>
-                       <div class="table-responsive">
+                       
+                        <a class="btn btn-success btn-sm" href="{{ route('comments.create')}}"><i class="fa fa-plus"></i>CREATE NEW COMMENT</a><br/><br/>
+
+                        <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                             <tr> 
@@ -26,11 +28,9 @@
                              @foreach($comments as $comment)
                              <tr>
                                  <td>
-                                     @if($file->isImage($comment->source))
+                                     
                                        <img src="{{asset('/storage/'.$comment->source)}}" width="250" height="150">
-                                     @elseif($file->isVideo($comment->source))
-                                        <iframe width="250" height="150" src="{{asset('/storage/'.$comment->source)}}" autoplay="false" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" ></iframe>
-                                     @endif
+                                    
                                  </td>
                                  <td>{{$comment->author_name}}</td>
                                  <td>{{$comment->author_function}}</td>
@@ -39,13 +39,13 @@
                                  <td>
                                      <div class=row>
                                          <div class=col-xs-4>
-                                            <a class="btn btn-warning" href="{{ route('comments.edit',$comment)}}">UPDATE</a>
+                                            <a class="btn btn-warning" href="{{ route('comments.edit',$comment)}}"><i class="icon-fa icon-fa-plus"></i>UPDATE</a>
                                          </div><br><br>
                                          <div class=col-xs-4 col-xs-offest-2>
                                             <form method='POST' action="{{route('comments.delete',$comment->id)}}">
                                                     {{csrf_field()}}
                                                     {{method_field('DELETE')}}
-                                                <button type='submit' class="btn btn-danger">DELETE</button>
+                                                <button type='submit' class="btn btn-danger"><i class="icon-fa icon-fa-trash"></i>DELETE</button>
                                             </form>                                           
                                          </div>
                                      </div>  

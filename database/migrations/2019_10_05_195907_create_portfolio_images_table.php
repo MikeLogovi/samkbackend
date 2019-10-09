@@ -16,7 +16,7 @@ class CreatePortfolioImagesTable extends Migration
         Schema::create('portfolio_images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('portfolio_category_id');
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('source');
            // $table->foreign('portfolio_category_id')->references('id')->on('portfolio_categories');
             $table->string('slug');

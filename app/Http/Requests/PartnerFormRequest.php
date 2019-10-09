@@ -24,7 +24,8 @@ class PartnerFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required|unique:partners',
+            'source'=>'required|file|image'
         ];
     }
 }

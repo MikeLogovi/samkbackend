@@ -43,8 +43,8 @@ class VideoController extends Controller
      */
     public function store(VideoFormRequest $request)
     {   
-        $path=uploadFile($request->file('source'),'videos');
-        Video::create(['title'=>$request->title,'description'=>$request->desciption,'source'=>$path]);
+        $path=uploadFile($request->file('brand_image'),'videos');
+        Video::create(['title'=>$request->title,'description'=>$request->desciption,'brand_image'=>$path,'source'=>$request->source]);
         event(new VideoCrud('Video created successfully'));
         return redirect(route('videos.index'));
     }
@@ -68,7 +68,7 @@ class VideoController extends Controller
      */
     public function edit(Video $video)
     {
-        return view('admin.videos.edit');
+        return view('admin.videos.edit',compact('video'));
     }
 
     /**
@@ -87,9 +87,12 @@ class VideoController extends Controller
         if(!empty($request->description)){
             $video->description=$request->description;
         }
-        if(!empty($request->hasFile('source'))){
-            $this->validate($request,['source'=>'file|video']);
-            $path=unlinkAndUpload($request->file('source'),'videos');
+        if(!empty($request->source)){
+            $video->source=$request->source;
+        }
+        if(!empty($request->hasFile('brand_image'))){
+            $this->validate($request,['brand_image'=>'file|image']);
+            $path=unlinkAndUpload($request->file('brand_image'),'videos');
             $video->source=$path;
         }
         $video->save();

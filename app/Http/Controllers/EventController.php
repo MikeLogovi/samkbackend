@@ -31,7 +31,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('admin.events.index');
+        return view('admin.events.create');
     }
 
     /**
@@ -85,17 +85,30 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Event $event)
-    {   if(!empy($request->name))
+    {   if(!empy($request->name)){
+            $this->validate($request,['name'=>'unique:partners']);
             $event->name=$request->name;
+        }
+           
         if(!empty($request->description))
             $event->description=$request->description;
         if(!empty($request->event_date))
             $event->event_date=$request->event_date;
-        if(!empty($request->source))
+        if(!empty($request->source) &&$request->hasFile('source')&& $request->file('source')->isValid()){
+            $this->validate($request,[
+                'source'=>'file|image|mimes:png,jpeg,jpg,gif,bmp'
+            ]) ;
             $path=unlinkAndUpload($request->file('source'),'events');
             $event->source=$request->source;
-        if(!empty($request->price))
+
+        }
+        
+        if(!empty($request->price)){
+            $this->validate($request,[
+                'price'=>'between:0,1000000000'
+            ]) ;
             $event->price=$request->price;
+        }
         $event->save();
         event(new EventCrud('Event updated successfully'));
         return redirect(route('events.index'));
