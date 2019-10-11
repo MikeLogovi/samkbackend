@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function(Blueprint $table){
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->boolean('is_now_team_member')->default('false');
             $table->boolean('is_now_partner')->default('false');
             $table->boolean('is_now_commentator')->default('false');
