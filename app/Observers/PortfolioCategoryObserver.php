@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\PortfolioCategory;
+use Illuminate\Support\Facades\Storage;
 
 class PortfolioCategoryObserver
 {
@@ -41,9 +42,11 @@ class PortfolioCategoryObserver
      * @param  \App\Models\PortfolioCategory  $portfolioCategory
      * @return void
      */
-    public function deleted(PortfolioCategory $portfolioCategory)
+    public function deleting(PortfolioCategory $portfolioCategory)
     {
-        //
+         foreach($portfolioCategory->portfolio_images as $portfolioImage){
+              Storage::disk('public')->delete($portfolioImage->source);
+         }
     }
 
     /**

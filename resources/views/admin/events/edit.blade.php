@@ -13,7 +13,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                      <form method="POST" action="{{route('events.store')}}" enctype="multipart/form-data"> 
+                      <form method="POST" action="{{route('events.update',$event)}}" enctype="multipart/form-data"> 
                       {{csrf_field()}}
                       {{method_field('PUT')}}
                             <div class="form-group">
@@ -36,7 +36,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="event_date">Event's date(DA)</label>
-                                <input type="date" class="form-control" id="event_date" name="event_date" value="{{old('event_date')?? $event->event_date}}" placeholder="Event's date is here" required>
+                                <input type="date" class="form-control" id="event_date" name="event_date" value="{{old('event_date')?? $event->event_date}}" placeholder="Event's date is here" >
                                  @if($errors->has('event_date'))
                                     <small class="text-danger">
                                     {{$errors->first('event_date')}}
@@ -46,7 +46,7 @@
                            
                             <div class="form-group">
                                 <label for="description" >description</label>
-                                <textarea rows="10" class="form-control" id="description" name="description" placeholder='Put your description here' required>
+                                <textarea rows="10" class="form-control" id="description" name="description" placeholder='Put your description here' >
                                     {{old('description') ?? $event->description}}
                                 </textarea>
                                 @if($errors->has('description'))
@@ -57,7 +57,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="source" class="custom-input">Event's brand image</label>
-                                <input type="file" class="form-control-file fileInput dd-none" name="source" id="source" required>
+                                <input type="file" class="form-control-file fileInput dd-none" name="source" id="source" >
                                 @if($errors->has('source'))
                                     <small class="text-danger">
                                     {{$errors->first('source')}}

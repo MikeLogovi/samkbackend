@@ -1,6 +1,6 @@
 @extends('admin.layouts.layout-basic')
-
 @section('content')
+@can('create',\App\Models\Comment::class)
     <div class="main-content">
         <div class="page-header">
             <h3 class="page-title">Comments</h3>
@@ -60,4 +60,5 @@
             </div>
         </div>
     </div>
+@endcan
 @stop

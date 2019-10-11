@@ -12,6 +12,9 @@ Route::get('/', [
     'as' => 'home', 'uses' => 'FrontendController@home'
 ]);
 
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::post('email/resend', 'Auth\VerificationControl@resend')->name('verification.resend');
 
  //Portfolio categories
 
@@ -56,15 +59,32 @@ Route::group([
         ],
         
     ]);
+    Route::resource('portfolio_images','PortfolioImageController',[
+        "names"=>[
+            "index"=>"images.index",
+            'create'=>"images.create",
+            "destroy"=>"images.delete",
+            "store"=>"images.store",
+        ],
+        'only'=>[
+            'index',
+            'create',
+            'destroy',
+            'store'
+        ]
+        
+    ]);
     Route::resource('portfolio_categories.portfolio_images','PortfolioImageController',[
         "names"=>[
-            "index"=>"portfolio_images.index",
-            "store"=>"portfolio_images.store",
-            "create"=>"portfolio_images.create",
+            
+            
             "edit"=>"portfolio_images.edit",
-            "up"=>"portfolio_images.up",
-            "destroy"=>"portfolio_images.delete"
+            "update"=>"portfolio_images.update",
+       
         ],
+        "except"=>[
+            'index'
+        ]
         
     ]);
     //Events
@@ -438,6 +458,10 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('login', [
         'as' => 'login.post', 'uses' => 'AuthController@postLogin'
     ]);
+    Route::post('register', [
+        'as' => 'register.post', 'uses' => 'AuthController@postRegister'
+    ]);
+
 
     Route::get('forgot-password', [
         'as' => 'forgot-password.index', 'uses' => 'ForgotPasswordController@getEmail'
@@ -467,3 +491,9 @@ Route::get('logout', [
 Route::get('install', [
     'as' => 'logout', 'uses' => 'AuthController@logout'
 ]);
+
+
+
+
+
+

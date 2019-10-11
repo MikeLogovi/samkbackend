@@ -1,4 +1,4 @@
-@extends('admin.layouts.layout-login')
+@extends('admin.layouts.layout-login-2')
 
 @section('scripts')
     <script src="/assets/admin/js/sessions/login.js"></script>
@@ -10,6 +10,6 @@
         <div class="form-group">
             <input type="email" class="form-control form-control-danger" placeholder="Enter email" name="email">
         </div>
-        <button class="btn btn-theme btn-full">Send Reset Link</button>
+        <button class="btn btn-login btn-full">Send Reset Link</button>
     </form>
 @stop

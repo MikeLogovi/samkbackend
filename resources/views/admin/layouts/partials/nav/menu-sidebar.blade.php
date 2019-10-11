@@ -1,5 +1,6 @@
 <ul class="side-nav metismenu" id="menu">
     @foreach(config('menu.sidebar') as $menu)
+      @if(in_array(Auth::user()->role,$menu['roles']))
         <li class="{{set_active($menu['active'],'active')}}">
             <a href="{{url($menu['link'])}}"><i class="{{$menu['icon']}}"></i> {{$menu['title']}} @if(isset($menu['children']))<span class="icon-fa arrow icon-fa-fw"></span> @endif</a>
             @if(isset($menu['children']))
@@ -19,5 +20,6 @@
                 </ul>
             @endif
         </li>
+        @endif
     @endforeach
 </ul>

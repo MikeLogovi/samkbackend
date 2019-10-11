@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Events\PortfolioImageCrud;
 use App\Http\Requests\PortfolioImageRequest;
+use App\Models\PortfolioCategory;
 use App\Models\PortfolioImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PortfolioImageController extends Controller
 {
@@ -15,10 +17,14 @@ class PortfolioImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   $portfolioImages=PortfolioImage::orderBy('updated_at','DESC')->get();
         
+        return view('admin.portfolio.images.index',compact('portfolioImages'));
     }
-
+    public function indexApi(){
+        $portfolioImages=PortfolioImage::orderBy('updated_at','DESC')->get();
+        return response()->json($portfolioImages);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +32,8 @@ class PortfolioImageController extends Controller
      */
     public function create()
     {
-        return view('admin.portfolio.images.create');
+        $portfolioCategories=PortfolioCategory::all();
+        return view('admin.portfolio.images.create',compact('portfolioCategories'));
     }
 
     /**
@@ -35,11 +42,14 @@ class PortfolioImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PortfolioImageRequest $request,PortfolioCategory $portfolioCategory,PortfolioImage $portfolioImage)
+    public function store(PortfolioImageRequest $request)
     {
-        if($request->hasfile('source')&& $request->file('source')->isValid()){
+        $portfolioCategory=PortfolioCategory::findOrFail($request->portfolio_category_id);
+        if($request->hasfile('source')&& $request->file('source')->isValid() ){
             $path=fileUpload($request->file('source'),'portfolio');
-            PortfolioImage::create(['portfolio_category_id'=>$portfolioCategory->id,'title'=>$request->title,'source'=>$path]);
+            $portfolioCategory->portfolio_images()->create([
+                  'title'=>$request->title,'source'=>$path
+            ]);  
             event(new PortfolioImageCrud('Image created successfully'));
         }
         return redirect(route('portfolio_categories.index'));
@@ -62,10 +72,9 @@ class PortfolioImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(PortfolioImage $portfolioImage)
-    {
-        return view('admin.portfolio.images.edit',compact('portfolioImage'));
-
+    public function edit(PortfolioCategory $portfolioCategory,  PortfolioImage $portfolioImage)
+    {   $portfolioCategories=PortfolioCategory::all();
+        return view('admin.portfolio.images.edit',compact('portfolioImage','portfolioCategories'));
     }
 
     /**
@@ -75,19 +84,21 @@ class PortfolioImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,PortfolioImage $portfolioImage)
+    public function update(Request $request,PortfolioCategory $portfolioCategory,PortfolioImage $portfolioImage)
     {
+        if(!empty($request->portfolio_category_id)){
+            $portfolioCategory=PortfolioCategory::findOrFail($request->portfolio_category_id);
+            $portfolioImage->portfolio_category_id=$portfolioCategory->id;
+        }
         if(!empty($request->title)){
-            $this->validate($request,[
-                'title'=>'unique:portfolio_images'
-            ]);
+       
             $portfolioImage->title=$request->title;
         }
          if(!empty($request->source) && $request->hasFile('source') && $request->file('source')->isValid()){
              $this->validate($request,[
                  'source'=>'file|image'
              ]);
-             $path=unlinkAndUpload($request->file('source'),'portfolio');
+             $path=unlinkAndUpload($request->file('source'),$portfolioImage->source,'portfolio');
              $portfolioImage->source=$path;
          }
          
@@ -104,9 +115,10 @@ class PortfolioImageController extends Controller
      */
     public function destroy($id)
     {
-        unlinkFile((PortfolioImage::find($id))->source);
+        $portfolioImage=PortfolioImage::find($id);
+        Storage::disk('public')->delete($portfolioImage->source);
         PortfolioImage::destroy($id);
-        event(new PortfolioImageCrud('Imagedeleted successfully'));
-        return redirect(route('sliders.index'));
+        event(new PortfolioImageCrud('Image deleted successfully'));
+        return redirect(route('portfolio_categories.index'));
     }
 }

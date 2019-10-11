@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12 mb-4">
-                       <a class="btn btn-success" href="{{ route('events.create')}}">CREATE NEW EVENT</a><br/><br/>
+                       <a class="btn btn-success" href="{{ route('events.create')}}"><i class="icon-fa icon-fa-plus"></i>CREATE NEW EVENT</a><br/><br/>
                        <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -39,13 +39,13 @@
                                  <td>
                                      <div class=row>
                                          <div class=col-xs-4>
-                                            <a class="btn btn-warning" href="{{ route('events.edit',$event)}}">UPDATE</a>
+                                            <a class="btn btn-warning" href="{{ route('events.edit',$event)}}"><i class="icon-fa icon-fa-pencil"></i>UPDATE</a>
                                          </div><br><br>
                                          <div class=col-xs-4 col-xs-offest-2>
                                             <form method='POST' action="{{route('events.delete',$event->id)}}">
                                                     {{csrf_field()}}
                                                     {{method_field('DELETE')}}
-                                                <button type='submit' class="btn btn-danger">DELETE</button>
+                                                <button type='submit' class="btn btn-danger"><i class="icon-fa icon-fa-trash"></i>DELETE</button>
                                             </form>                                           
                                          </div>
                                      </div>  

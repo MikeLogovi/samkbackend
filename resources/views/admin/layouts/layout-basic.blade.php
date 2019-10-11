@@ -20,7 +20,7 @@
     <div id="app" class="site-wrapper">
         @include('admin.layouts.partials.header')
         <div class="mobile-menu-overlay"></div>
-        @include('admin.layouts.partials.sidebar',['type' => 'default'])
+        @include('admin.layouts.partials.sidebar',['type' => 'icon'])
 
         @yield('content')
 

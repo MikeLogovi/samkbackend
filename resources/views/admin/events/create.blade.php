@@ -27,7 +27,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="price">Event's price(DA)</label>
-                                <input type="number" class="form-control" id="price" name="price" value="{{old('price')?? ''}}" placeholder="Put event's price here">
+                                <input type="number" class="form-control" id="price" name="price" value="{{old('price')?? ''}}" placeholder="Put event's price here" required>
                                  @if($errors->has('price'))
                                     <small class="text-danger">
                                     {{$errors->first('price')}}
@@ -45,7 +45,7 @@
                             </div>
                            
                             <div class="form-group">
-                                <label for="description" >description</label>
+                                <label for="description" >Description</label>
                                 <textarea rows="10" class="form-control" id="description" name="description" placeholder='Put your description here' required>
                                     {{old('description')}}
                                 </textarea>

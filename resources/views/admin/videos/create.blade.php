@@ -36,7 +36,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea rows="10" class="form-control" id="description" name="description" placeholder='Describe your video'>
+                                <textarea rows="10" class="form-control" id="description" name="description" placeholder='Describe your video' required>
                                     {{old('description')}}
                                 </textarea>
                                 @if($errors->has('description'))

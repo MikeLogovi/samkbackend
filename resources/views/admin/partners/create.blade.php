@@ -17,7 +17,7 @@
                       {{csrf_field()}}
 
                             <div class="form-group">
-                                <label for="name">partner's name</label>
+                                <label for="name">Partner's name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{old('name')?? ''}}" placeholder="Put partner's name here" required>
                                  @if($errors->has('name'))
                                     <small class="text-danger">
@@ -27,7 +27,7 @@
                             </div>  
                             
                             <div class="form-group">
-                                <label for="source" class="custom-input">partner's brand image</label>
+                                <label for="source" class="custom-input">Partner's brand image</label>
                                 <input type="file" class="form-control-file fileInput dd-none" name="source" id="source" required>
                                 @if($errors->has('source'))
                                     <small class="text-danger">

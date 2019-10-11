@@ -26,7 +26,7 @@ class SliderFormRequest extends FormRequest
         return [
             'title'=>'required|min:4|unique:sliders',
             'description'=>'required',
-            'source'=>'mimes:mp4,avi,mpeg,quicktime,jpeg,bmp,png,jpg'
+            'source'=>'required|mimes:mp4,avi,mpeg,quicktime,jpeg,bmp,png,jpg'
         ];
     }
 }

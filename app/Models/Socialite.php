@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Socialite extends Model
 {   use SlugRoutable;
     public $fillable=['url','icon'];
-    public function teams(){
+    public function team(){
         return $this->belongsTo(Team::class);
     }
 }

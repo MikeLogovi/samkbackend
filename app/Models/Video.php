@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {  use SlugRoutable;
-    public $fillable=['title','description','source'];
+    public $fillable=['title','description','source','brand_image'];
 }

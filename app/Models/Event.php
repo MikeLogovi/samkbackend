@@ -10,7 +10,7 @@ class Event extends Model
     public $append =['status'];
     public $fillable =['name','description','event_date','source','price'];
     public function getStatusAttribute(){
-        $dateEvent=formatMyDate($this->attributes['updated_at']);
+        $dateEvent=$this->attributes['event_date'];
         return getEventStatus($dateEvent);
     }
    public function getEventDateAttribute(){

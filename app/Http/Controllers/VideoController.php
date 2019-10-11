@@ -6,6 +6,7 @@ use App\Events\VideoCrud;
 use App\Http\Requests\VideoFormRequest;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
@@ -16,12 +17,12 @@ class VideoController extends Controller
      */
     public function index()
     {
-      $videos=Video::all();
+      $videos=Video::orderBy('updated_at','DESC')->get();
       return view('admin.videos.index',compact('videos'));
     }
     public function indexApi()
     {
-      $videos=Video::all();
+      $videos=Video::orderBy('updated_at','DESC')->get();
       return response()->json($videos);
     }
 
@@ -43,8 +44,8 @@ class VideoController extends Controller
      */
     public function store(VideoFormRequest $request)
     {   
-        $path=uploadFile($request->file('brand_image'),'videos');
-        Video::create(['title'=>$request->title,'description'=>$request->desciption,'brand_image'=>$path,'source'=>$request->source]);
+        $path=fileUpload($request->file('brand_image'),'videos');
+        Video::create(['title'=>$request->title,'description'=>$request->description,'brand_image'=>$path,'source'=>$request->source]);
         event(new VideoCrud('Video created successfully'));
         return redirect(route('videos.index'));
     }
@@ -80,8 +81,7 @@ class VideoController extends Controller
      */
     public function update(Request $request, Video $video)
     {
-        if(!empty($request->title)){
-            $this->validate($request,['title'=>'unique:videos']);
+        if(!empty($request->title)){           
             $video->title=$request->title;
         }
         if(!empty($request->description)){
@@ -92,8 +92,8 @@ class VideoController extends Controller
         }
         if(!empty($request->hasFile('brand_image'))){
             $this->validate($request,['brand_image'=>'file|image']);
-            $path=unlinkAndUpload($request->file('brand_image'),'videos');
-            $video->source=$path;
+            $path=unlinkAndUpload($request->file('brand_image'),$video->brand_image,'videos');
+            $video->brand_image=$path;
         }
         $video->save();
         event(new VideoCrud('Video updated successfully'));
@@ -110,8 +110,8 @@ class VideoController extends Controller
     public function destroy($id)
     {
         $video=Video::find($id);
-        unlinkFile($video->source);
-        $video->delete();
+        Storage::disk('public')->delete($video->brand_image);
+        video::destroy($id);
         event(new VideoCrud('Video deleted successfully'));
         return redirect(route('videos.index'));
     }

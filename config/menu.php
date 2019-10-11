@@ -16,11 +16,12 @@ return [
     // SIDEBAR LAYOUT - MENU
 
     'sidebar' => [
-        [
+        [   
             'title' => 'Dashboard',
             'link' => '#',
             'active' => 'admin/dashboard*',
             'icon' => 'icon-fa icon-fa-dashboard',
+            'roles'=>['admin',"Team's member","Commentator","Partner"],
             'children' => [
                 [
                     'title' => 'Basic',
@@ -44,6 +45,8 @@ return [
             'link' => '#',
             'active' => '/admin/sliders*',
             'icon' =>"fa fa-sliders",
+            'roles'=>['admin'],
+
             'children'=>[
                 [
                     'title' => 'New Slider',
@@ -58,13 +61,15 @@ return [
             ]
         ],
         [
+            
             'title' => 'Portfolio',
             'link' => '#',
             'active' => '/admin/portfolio*',
             'icon' =>"fa fa-picture-o",
+            'roles'=>['admin'],
             'children'=>[
                 [
-                    'title' => 'Category',
+                    'title' => 'Categories',
                     'link'=>'#',
                     'active' => 'admin/portfolio_categories*',
                     'children'=>[
@@ -80,6 +85,23 @@ return [
                         ],
                     ]
                 ],
+                [
+                    'title' => 'Images',
+                    'link'=>'#',
+                    'active' => 'admin/portfolio_images*',
+                    'children'=>[
+                        [
+                            'title' => 'Create new image',
+                            'link'=>'admin/portfolio_images/create',
+                            'active' => 'admin/portfolio_images*'
+                        ],
+                        [
+                            'title' => 'Images list',
+                            'link'=>'admin/portfolio_images',
+                            'active' => 'admin/portfolio_images*',
+                        ],
+                    ]
+                ],
                 
             ]
         ],
@@ -88,6 +110,8 @@ return [
             'link' => '/admin/videos',
             'active' => '/admin/videos*',
             'icon' =>"fa fa-video-camera",
+            'roles'=>['admin'],
+
             'children'=>[
                 [
                     'title' => 'New video',
@@ -106,6 +130,8 @@ return [
             'link' => '#',
             'active' => '/admin/events*',
             'icon' =>"fa fa-cc",
+            'roles'=>['admin'],
+
             'children'=>[
                 [
                     'title' => 'New event',
@@ -124,6 +150,8 @@ return [
             'link' => '/admin/comments',
             'active' => '/admin/comments*',
             'icon' =>"fa fa-comment",
+            'roles'=>['admin',"Commentator"],
+
             'children'=>[
                 [
                     'title' => 'New comment',
@@ -142,6 +170,8 @@ return [
             'link' => '/admin/partners',
             'active' => '/admin/partners*',
             'icon' =>"fa fa-handshake-o",
+            'roles'=>['admin',"Partner"],
+
             'children'=>[
                 [
                     'title' => 'New partner',
@@ -156,6 +186,27 @@ return [
             ]
         ],
         [
+            'title' => 'Team',
+            'link' => '/admin/teams',
+            'active' => '/admin/teams*',
+            'icon' =>"fa fa-users",
+            'roles'=>['admin',"Team's member"],
+
+            'children'=>[
+                [
+                    'title' => "New team's member",
+                    'link' => '/admin/teams/create',
+                    'active' => '/admin/teams*',
+                ],
+                [
+                    'title' => "Team's members list",
+                    'link' => '/admin/teams',
+                    'active' => '/admin/teams*',
+                ],
+            ]
+        ],
+        [
+            'roles'=>['admin',"Team's member","Commentator","Partner"],
             'title' => 'Profile',
             'link' => '/admin/partners',
             'active' => '/admin/partners*',
@@ -390,13 +441,14 @@ return [
                     'active' => 'admin/forms/editors',
                 ],
             ]
-        ],
+        ],*/
         [
             'title' => 'Gallery',
-            'link' => '#',
+            'link' => '/admin/gallery/masonry-grid',
             'active' => 'admin/gallery*',
             'icon' => 'icon-fa icon-fa-image',
-            'children' => [
+            'roles'=>['admin',"Team's member","Commentator","Partner"]
+            /*'children' => [
                 [
                     'title' => 'Gallery Grid',
                     'link' => '/admin/gallery/grid',
@@ -407,8 +459,8 @@ return [
                     'link' => '/admin/gallery/masonry-grid',
                     'active' => 'admin/gallery/masonry-grid',
                 ]
-            ]
-        ],
+            ]*/
+        ],/*
         [
             'title' => 'Pages',
             'link' => '#',
@@ -456,12 +508,14 @@ return [
                     'active' => 'admin/maintenance',
                 ],
             ]
-        ],*/
-        [
+        ],
+        */
+        [   
             'title' => 'Users',
             'link' => '#',
             'active' => 'admin/users*',
             'icon' => 'icon-fa icon-fa-user',
+            'roles'=>['admin'],
             'children' => [
                 [
                     'title' => 'All Users',
@@ -500,9 +554,9 @@ return [
             ]
         ],
     ],
-     */
+     
     // HORIZONTAL MENU LAYOUT -  MENU
-    /*
+    
     'horizontal' => [
         [
             'title' => 'Dashboard',

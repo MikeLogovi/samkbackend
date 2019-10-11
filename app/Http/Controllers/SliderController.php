@@ -7,6 +7,7 @@ use App\Http\Requests\SliderFormRequest;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
@@ -17,12 +18,12 @@ class SliderController extends Controller
      */
     public function index()
     {  
-        $sliders=Slider::all();
+        $sliders=Slider::orderBy('updated_at','DESC')->get();
        
         return view('admin.sliders.index',compact('sliders'));
     }
      public function indexApi(){
-        $sliders=Slider::all();
+        $sliders=Slider::orderBy('updated_at','DESC')->get();
         return response()->json($sliders);
      }
     /**
@@ -85,9 +86,7 @@ class SliderController extends Controller
     {   //dd('What the fuck');
         
         if(!empty($request->title)){
-            $this->validate($request,[
-                'title'=>'unique:sliders'
-            ]);
+          
            $slider->title=$request->title;
         }
         if(!empty($request->description)){
@@ -95,7 +94,7 @@ class SliderController extends Controller
         }
         if(!empty($request->source) && $request->hasFile('source') && $request->file('source')->isValid()){
             $this->validate($request,['source'=>'mimes:mp4,avi,mpeg,quicktime,jpeg,bmp,png,jpg']);
-            $path=unlinkAndUpload($request->file('source'),'sliders');
+            $path=unlinkAndUpload($request->file('source'),$slider->source,'sliders');
             $slider->source=$path;
         }
         
@@ -112,7 +111,9 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {   
-        unlinkFile((Slider::find($id))->source);
+        $slider=Slider::find($id);
+        Storage::disk('public')->delete($slider->source);
+
         Slider::destroy($id);
         event(new SliderCrud('Slider deleted successfully'));
         return redirect(route('sliders.index'));

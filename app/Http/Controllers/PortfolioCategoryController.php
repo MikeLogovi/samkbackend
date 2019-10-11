@@ -16,13 +16,13 @@ class PortfolioCategoryController extends Controller
      */
     public function index()
     {   
-        $portfolioCategories=PortfolioCategory::with('portfolio_images')->get();
+        $portfolioCategories=PortfolioCategory::with('portfolio_images')->orderBy('updated_at','DESC')->get();
         return view('admin.portfolio.categories.index',compact('portfolioCategories'));
     
     }
     public function indexApi()
     {   
-        $portfolioCategories=PortfolioCategory::with('portfolio_images')->get();
+        $portfolioCategories=PortfolioCategory::with('portfolio_images')->orderBy('updated_at','DESC')->get();
         return response()->json($portfolioCategories);
     
     }
@@ -43,7 +43,7 @@ class PortfolioCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PortfolioCategoryRequest $request)
-    {   Event::create($request->only('name'));
+    {   PortfolioCategory::create($request->only('name'));
         event(new PortfolioCategoryCrud('The portolio category has been created successfully'));
         return redirect(route('portfolio_categories.index'));
     }
@@ -79,10 +79,7 @@ class PortfolioCategoryController extends Controller
      */
     public function update(Request $request, PortfolioCategory $portfolioCategory)
     {   if(!empty($request->name))
-             $this->validate($request,[
-                 'name'=>'unique:portfolio_categories'
-             ]);
-             $portfolioCategory->name=$request->name;
+           $portfolioCategory->name=$request->name;
         $portfolioCategory->save();
         event(new PortfolioCategoryCrud('The portolio category has been updated successfully'));
         return redirect(route('portfolio_categories.index'));

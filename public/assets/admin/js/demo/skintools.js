@@ -1,6 +1,7 @@
 var SkinTools = (function () {
   var setSkinOnLoad = function () {
-    var skin = localStorage.getItem('currentSkin')
+    var skin = 'tyrell'
+    setSkin('tyrell')
     if (skin) {
       // Set Active class on radio with currently active skin and remove active class from other radios
       $('[data-skin]').each(function () {
@@ -11,7 +12,6 @@ var SkinTools = (function () {
         }
       })
 
-      setSkin(skin)
     }
   }
 
@@ -35,7 +35,7 @@ var SkinTools = (function () {
       $(this).addClass('active')
 
       var skin = $(this).data('skin')
-      localStorage.setItem('currentSkin', skin)
+      localStorage.setItem('currentSkin', "tyrell")
 
       setSkin(skin)
     })
@@ -71,7 +71,7 @@ var SkinTools = (function () {
   }
 })()
 
-// SkinTools.beforeInit();
+ SkinTools.beforeInit();
 
 jQuery(document).ready(function () {
   SkinTools.init()

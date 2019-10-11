@@ -13,15 +13,15 @@ class PortfolioImageObserver
      * @return void
      */
     public function creating(PortfolioImage $portfolioImage){
-        $portfolioImage->slug =str_slug($portfolioImage->name);
+        $portfolioImage->slug =str_slug($portfolioImage->title);
     }
     public function created(PortfolioImage $portfolioImage)
     {
         //
     }
     public function updating(PortfolioImage $portfolioImage){
-        if($portfolioCategory->name){
-            $portfolioImage->slug =str_slug($portfolioImage->name);
+        if($portfolioImage->title){
+            $portfolioImage->slug =str_slug($portfolioImage->title);
         }
     }
     /**

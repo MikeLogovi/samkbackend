@@ -1,4 +1,5 @@
 @extends('admin.layouts.layout-basic')
+@can('create',App\Models\Partner::class)
 @section('content')
     <div class="main-content">
         <div class="page-header">
@@ -8,7 +9,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12 mb-4">
-                       <a class="btn btn-success" href="{{ route('partners.create')}}">CREATE NEW PARTNER</a><br/><br/>
+                       <a class="btn btn-success" href="{{ route('partners.create')}}"><i class="icon-fa icon-fa-plus"></i>CREATE NEW PARTNER</a><br/><br/>
                        <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -31,13 +32,13 @@
                                  <td>
                                      <div class=row>
                                          <div class=col-xs-6>
-                                            <a class="btn btn-warning" href="{{ route('partners.edit',$partner)}}">UPDATE</a>
+                                            <a class="btn btn-warning" href="{{ route('partners.edit',$partner)}}"><i class="icon-fa icon-fa-pencil"></i>UPDATE</a>
                                          </div>&nbsp;&nbsp;
                                          <div class=col-xs-6 >
                                             <form method='POST' action="{{route('partners.delete',$partner->id)}}">
                                                     {{csrf_field()}}
                                                     {{method_field('DELETE')}}
-                                                <button type='submit' class="btn btn-danger">DELETE</button>
+                                                <button type='submit' class="btn btn-danger"><i class="icon-fa icon-fa-trash"></i>DELETE</button>
                                             </form>                                           
                                          </div>
                                      </div>  
@@ -53,3 +54,4 @@
         </div>
     </div>
 @stop
+@endcan

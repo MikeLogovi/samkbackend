@@ -1,6 +1,7 @@
 @extends('admin.layouts.layout-basic')
 @inject('file','App\Services\File')
 @section('content')
+foreach
     <div class="main-content">
         <div class="page-header">
             <h3 class="page-title">Sliders</h3>
@@ -9,7 +10,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12 mb-4">
-                       <a class="btn btn-success" href="{{ route('sliders.create')}}">CREATE NEW SLIDER</a><br/><br/>
+                       <a class="btn btn-success" href="{{ route('sliders.create')}}"><i class="icon-fa icon-fa-plus"></i>CREATE NEW SLIDER</a><br/><br/>
                        <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -22,7 +23,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                             @foreach($sliders as $slider)
+                        @forelse($sliders as $slider)
                              <tr>
                                  <td>
                                      @if($file->isImage($slider->source))
@@ -38,19 +39,22 @@
                                  <td>
                                      <div class=row>
                                          <div class=col-xs-4>
-                                            <a class="btn btn-warning" href="{{ route('sliders.edit',$slider)}}">UPDATE</a>
+                                            <a class="btn btn-warning" href="{{ route('sliders.edit',$slider)}}"><i class="icon-fa icon-fa-pencil"></i>UPDATE</a>
                                          </div><br><br>
                                          <div class=col-xs-4 col-xs-offest-2>
                                             <form method='POST' action="{{route('sliders.delete',$slider->id)}}">
                                                     {{csrf_field()}}
                                                     {{method_field('DELETE')}}
-                                                <button type='submit' class="btn btn-danger">DELETE</button>
+                                                <button type='submit' class="btn btn-danger"><i class="icon-fa icon-fa-trash"></i>DELETE</button>
                                             </form>                                           
                                          </div>
                                      </div>  
                                  </td>
                              </tr>
-                             @endforeach
+                           @empty
+                                 @include('partials/unavailable',['message'=>'NO SLIDER CREATED'])  
+                           @endforelse
+
                             </tbody>
                         </table>
                         </div>

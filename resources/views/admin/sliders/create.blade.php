@@ -18,7 +18,7 @@
 
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <input type="text" class="form-control" id="title" name="title" value="{{old('title')?? ''}}" placeholder="Your slider title">
+                                <input type="text" class="form-control" id="title" name="title" value="{{old('title')?? ''}}" placeholder="Your slider title" required>
                                  @if($errors->has('title'))
                                     <small class="text-danger">
                                     {{$errors->first('title')}}
@@ -27,7 +27,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea rows="10" class="form-control" id="description" name="description" placeholder='Describe your slider'>
+                                <textarea rows="10" class="form-control" id="description" name="description" placeholder='Describe your slider' required>
                                     {{old('description')}}
                                 </textarea>
                                 @if($errors->has('description'))
@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="source">Your media</label>
-                                <input type="file" class="form-control-file fileInput " name="source" id="source">
+                                <input type="file" class="form-control-file fileInput " name="source" id="source" >
                                 @if($errors->has('source'))
                                     <small class="text-danger">
                                     {{$errors->first('source')}}

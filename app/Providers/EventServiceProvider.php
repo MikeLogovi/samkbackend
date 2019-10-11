@@ -32,8 +32,8 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\CommentCrudListener',
         ],
         //Parteners
-        'App\Events\PartenersCrud' => [
-            'App\Listeners\PartenersCrudListener',
+        'App\Events\PartnerCrud' => [
+            'App\Listeners\PartnerCrudListener',
         ],
         //Video
         'App\Events\VideoCrud' => [

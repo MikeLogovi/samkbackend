@@ -18,7 +18,7 @@
                       {{method_field('PUT')}}
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <input type="text" class="form-control" id="title" name="title" value="{{old('title')?? $video->title}}" placeholder="Your video title" required>
+                                <input type="text" class="form-control" id="title" name="title" value="{{old('title')?? $video->title}}" placeholder="Your video title" >
                                  @if($errors->has('title'))
                                     <small class="text-danger">
                                     {{$errors->first('title')}}
@@ -27,7 +27,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="source">source</label>
-                                <input type="text" class="form-control" id="source" name="source" value="{{old('source')?? $video->source}}" placeholder="Your youtube video here" required>
+                                <input type="text" class="form-control" id="source" name="source" value="{{old('source')?? $video->source}}" placeholder="Your youtube video here" >
                                  @if($errors->has('source'))
                                     <small class="text-danger">
                                     {{$errors->first('source')}}

@@ -18,7 +18,6 @@ class CreatePortfolioImagesTable extends Migration
             $table->unsignedBigInteger('portfolio_category_id');
             $table->string('title')->unique();
             $table->string('source');
-           // $table->foreign('portfolio_category_id')->references('id')->on('portfolio_categories');
             $table->string('slug');
             $table->timestamps();
         });

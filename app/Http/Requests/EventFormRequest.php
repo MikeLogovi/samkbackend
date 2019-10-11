@@ -28,7 +28,7 @@ class EventFormRequest extends FormRequest
             'description'=>'required',
             'price'=>'required|between:0,1000000',
             'event_date'=>'required|date',
-            'source'=>'file|image'
+            'source'=>'required|file|image'
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Events\EventCrud;
 use App\Http\Requests\EventFormRequest;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -16,12 +17,12 @@ class EventController extends Controller
      */
     public function index()
     {   
-        $events=Event::all();
+        $events=Event::orderBy('updated_at','DESC')->get();
         return view('admin.events.index',compact('events'));
     }
     public function indexApi()
     {   
-        $events=Event::all();
+        $events=Event::orderBy('updated_at','DESC')->get();
         return response()->json($events);
     }
     /**
@@ -85,7 +86,7 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Event $event)
-    {   if(!empy($request->name)){
+    {   if(!empty($request->name)){
             $this->validate($request,['name'=>'unique:partners']);
             $event->name=$request->name;
         }
@@ -98,8 +99,8 @@ class EventController extends Controller
             $this->validate($request,[
                 'source'=>'file|image|mimes:png,jpeg,jpg,gif,bmp'
             ]) ;
-            $path=unlinkAndUpload($request->file('source'),'events');
-            $event->source=$request->source;
+            $path=unlinkAndUpload($request->file('source'),$event->source,'events');
+            $event->source=$path;
 
         }
         
@@ -123,8 +124,8 @@ class EventController extends Controller
     public function destroy($id)
     {   
         $event=Event::find($id);
-        unlinkFile($event->source);
-        $event->delete();
+        Storage::disk('public')->delete($event->source);
+        Event::destroy($id);
         event(new EventCrud('Event deleted successfully'));
         return redirect(route('events.index'));
     }

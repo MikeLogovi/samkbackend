@@ -22,7 +22,7 @@ class PartnerObserver
      * @return void
      */
     
-    public function created(Event $event)
+    public function created(Partner $partner)
     {
         //
     }

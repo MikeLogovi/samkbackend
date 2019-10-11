@@ -1,13 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 
 class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 'user')->get();
+        $users = User::orderBy('updated_at','DESC')->get();
 
         return view('admin.users.index')->with('users', $users);
     }
@@ -23,7 +23,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        flash('User Deleted')->success();
+        session()->flash('message','User Deleted successfully');
 
         return redirect()->back();
     }

@@ -24,7 +24,7 @@ class PortfolioImageCrudListener
      * @param  PortfolioImageCrud  $event
      * @return void
      */
-    public function handle(PortfolioImagerud $event)
+    public function handle(PortfolioImageCrud $event)
     {
         session()->flash('message',$event->message);
     }

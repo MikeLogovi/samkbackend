@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers\Demo;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Models\PortfolioImage;
+use App\Models\Video;
 
 class PagesController extends Controller
 {
@@ -188,8 +190,10 @@ class PagesController extends Controller
     }
 
     public function galleryMasonryGrid()
-    {
-        return view('admin.pages.gallery.masonry-grid');
+    {   
+        $images=PortfolioImage::all();
+        $videos=Video::all();
+        return view('admin.pages.gallery.masonry-grid',compact('images','videos'));
     }
 
     // Login

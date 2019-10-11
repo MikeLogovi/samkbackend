@@ -14,10 +14,8 @@ use Illuminate\Support\Facades\Storage;
       }
   }
   if(!function_exists('unlinkAndUpload')){
-      function unlinkAndUpload($file,$folder){
-          $path="/storage"."/".config('samk.uploadsFolder')."/".$folder;
-          if(file_exists($path))
-             unlink($path);
+      function unlinkAndUpload($file,$path,$folder){
+          Storage::disk('public')->delete($path);
           return fileUpload($file,$folder);
       }
   }
@@ -28,10 +26,11 @@ use Illuminate\Support\Facades\Storage;
   }
   if(!function_exists('getEventStatus')){
       function getEventStatus($dateEvent){
-        $dateNow=date('d/m/Y');
+        $dateEvent=new Datetime($dateEvent);
+        $dateNow=new Datetime(date('d/m/Y'));
         if($dateEvent<$dateNow)
             return config('samk.status.passed');
-        elseif($dateEvent==dateNow)
+        elseif($dateEvent==$dateNow)
             return config('samk.status.today');
         else
             return config('samk.status.upcoming');;

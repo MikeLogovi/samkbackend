@@ -6,6 +6,7 @@ use App\Events\TeamCrud;
 use App\Http\Requests\TeamFormRequest;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
 {
@@ -16,7 +17,7 @@ class TeamController extends Controller
      */
     public function index()
     {   
-        $teams=Team::with('socialites')->get();
+        $teams=Team::with('socialites')->orderBy('updated_at','desc')->get();
         return view('admin.teams.index',compact('teams'));
     }
     public function indexApi(){
@@ -41,16 +42,22 @@ class TeamController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(TeamFormRequest $request)
-    {   
-        $path=uploadFile($request->file('source'),'teams'); 
+    {   $index=0;
+        $urls=$request->urls;
+        $path=fileUpload($request->file('source'),'teams'); 
         $team=Team::create(['name'=>$request->name,
                         'country'=>$request->country,
                         'description'=>$request->description,
                         'source'=>$path]);
-        $team->socialites()->create([
-                        'url'=>$request->url,
-                        'icon'=>$request->icon
-        ]);
+        if($request->icons){
+            foreach($request->icons as $icon){
+                $team->socialites()->create([
+                                'url'=>$urls[$index],
+                                'icon'=>$icon
+                ]);
+                $index++;
+            }
+        }
         event(new TeamCrud('Member of team created successfully'));
         return redirect(route('teams.index'));
 
@@ -88,7 +95,6 @@ class TeamController extends Controller
     public function update(Request $request, Team $team)
     {
         if(!empty($request->name)){
-            $this->validate($request,['name'=>'unique:teams']);
             $team->name=$request->name;
         }
         if(!empty($request->country)){
@@ -98,8 +104,8 @@ class TeamController extends Controller
             $team->description=$request->description;
         }
         if(!empty($request->hasFile('source'))){
-            $this->validate($request,['source'=>'file|team']);
-            $path=unlinkAndUpload($request->file('source'),'teams');
+            $this->validate($request,['source'=>'file|image']);
+            $path=unlinkAndUpload($request->file('source'),$team->source,'teams');
             $team->source=$path;
         }
         $team->save();
@@ -117,8 +123,8 @@ class TeamController extends Controller
     public function destroy($id)
     {
         $team=Team::find($id);
-        unlinkFile($team->source);
-        $team->delete();
+        Storage::disk('public')->delete($team->source);
+        Team::destroy($id);
         event(new TeamCrud('Team deleted successfully'));
         return redirect(route('teams.index'));
     }

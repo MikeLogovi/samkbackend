@@ -6,6 +6,7 @@ use App\Events\PartnerCrud;
 use App\Http\Requests\PartnerFormRequest;
 use App\Models\Partner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PartnerController extends Controller
 {
@@ -16,12 +17,12 @@ class PartnerController extends Controller
      */
     public function index()
     {
-        $partners=Partner::all();
+        $partners=Partner::orderBy('updated_at','DESC')->get();
         return view('admin.partners.index',compact('partners'));
     }
     public function indexApi()
     {
-        $partners=Partner::all();
+        $partners=Partner::orderBy('updated_at','DESC')->get();
         return  response()->json($partners);
     }
 
@@ -84,12 +85,11 @@ class PartnerController extends Controller
     public function update(Request $request, Partner $partner)
     {
         if(!empty($request->name)){
-            $this->validate($request,['name'=>'unique:partners']);
             $partner->name=$request->name;
          }
         
          if(!empty($request->source) && $request->hasFile('source') && $request->file('source')->isValid()){
-             $path=unlinkAndUpload($request->file('source'),'partners');
+             $path=unlinkAndUpload($request->file('source'),$partner->source,'partners');
              $partner->source=$path;
          }
          
@@ -106,7 +106,8 @@ class PartnerController extends Controller
      */
     public function destroy($id)
     {
-        unlinkFile((Partner::find($id))->source);
+        $partner=Partner::find($id);
+        Storage::disk('public')->delete($partner->source);
         Partner::destroy($id);
         event(new PartnerCrud('Partner deleted successfully'));
         return redirect(route('partners.index'));

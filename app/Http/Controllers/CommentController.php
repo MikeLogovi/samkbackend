@@ -6,6 +6,9 @@ use App\Events\CommentCrud;
 use App\Http\Requests\CommentFormRequest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class CommentController extends Controller
 {
@@ -16,12 +19,12 @@ class CommentController extends Controller
      */
     public function index()
     {   
-        $comments=Comment::all();
+        $comments=Comment::orderBy('updated_at','DESC')->get();
         return view('admin.comments.index',compact('comments'));
     }
     public function indexApi()
     {   
-        $comments=Comment::all();
+        $comments=Comment::orderBy('updated_at','DESC')->get();
         return response()->json($comments);
     }
 
@@ -43,6 +46,7 @@ class CommentController extends Controller
      */
     public function store(CommentFormRequest $request)
     {   
+        $this->authorize('create',Comment::class);
         if($request->hasfile('source')&& $request->file('source')->isValid()){
             $path=fileUpload($request->file('source'),'comments');
             Comment::create(['author_name'=>$request->author_name,
@@ -98,7 +102,7 @@ class CommentController extends Controller
             $this->validate($request,[
                 'source'=>'file|image|mimes:png,jpeg,jpg,gif,bmp'
             ]) ;
-            $path=unlinkAndUpload($request->file('source'),'comments');
+            $path=unlinkAndUpload($request->file('source'),$comment->source,'comments');
              $comment->source=$path;
          }
          
@@ -115,7 +119,8 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        unlinkFile((Comment::find($id))->source);
+        $comment=Comment::find($id);
+        Storage::disk('public')->delete($comment->source);
         Comment::destroy($id);
         event(new CommentCrud('Comment deleted successfully'));
         return redirect(route('comments.index'));

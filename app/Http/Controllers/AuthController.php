@@ -1,22 +1,23 @@
 <?php
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Http\Requests;
-use App\User;
+use App\Models\User;
+use Auth;
+use Illuminate\Support\Facades\Hash;
 use Socialite;
 
 class AuthController extends Controller
 {
     public function login()
     {
-        return view('admin.sessions.login');
+        return view('admin.sessions.login-2');
     }
 
     public function postLogin(Requests\LoginRequest $request)
     {
         if (User::login($request)) {
-            flash('Welcome to Laraspace.')->success();
+            session()->flash('message','WELCOME TO SAM K TRAVEL & TOUR ADMINISTRATION');
             if (Auth::user()->isAdmin()) {
                 return redirect()->to('/admin');
             } else {
@@ -37,8 +38,19 @@ class AuthController extends Controller
 
     public function register()
     {
-        return view('admin.sessions.register');
+        return view('admin.sessions.register-2');
     }
+    public function postRegister(Requests\RegisterRequest $request)
+    { 
+        $user=User::create(['name'=>$request->name,
+                      'email'=>$request->email,
+                      'password'=>Hash::make($request->password),
+                      'role'=>$request->role]);
+        $user->sendEmailVerificationNotification();             
+        session()->flash('message','Great,now you can login but verify your email');
+        return redirect()->to('/admin');
+    }
+
 
     /**
      * Redirect the user to the authentication page.

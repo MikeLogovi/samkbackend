@@ -23,6 +23,7 @@ class LoginRequest extends Request
         return [
             'email' => 'required',
             'password' => 'required',
+           
         ];
     }
 }

@@ -27,7 +27,8 @@ class TeamFormRequest extends FormRequest
             'name'=>'required|unique:teams',
             'country'=>'required',
             'description'=>'required',
-            'source'=>'required|file|image'
+            'source'=>'required|file|image',
+           
         ];
     }
 }

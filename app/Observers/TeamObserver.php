@@ -12,9 +12,9 @@ class TeamObserver
      * @param  \App\Models\Team  $team
      * @return void
      */
-    public function created(Team $team)
+    public function creating(Team $team)
     {
-        //
+        $team->slug=str_slug($team->name);
     }
 
     /**
@@ -23,9 +23,9 @@ class TeamObserver
      * @param  \App\Models\Team  $team
      * @return void
      */
-    public function updated(Team $team)
+    public function updating(Team $team)
     {
-        //
+        $team->slug=str_slug($team->name);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CommentFormRequest extends FormRequest
 {
@@ -12,8 +13,9 @@ class CommentFormRequest extends FormRequest
      * @return bool
      */
     public function authorize()
-    {
-        return true;
+    {  
+        $user=Auth::user();
+        return $user->role==config('samk.roles')[1] || $user->role=='admin';
     }
 
     /**
@@ -25,8 +27,8 @@ class CommentFormRequest extends FormRequest
     {
         return [
             'author_name'=>'required|unique:comments',
-            'author_function'=>'reuired',
-            'source'=>'file|image|mimes:png,jpeg,jpg,gif,bmp',
+            'author_function'=>'required',
+            'source'=>'required|file|image|mimes:png,jpeg,jpg,gif,bmp',
             'comment'=>'required'
 
         ];

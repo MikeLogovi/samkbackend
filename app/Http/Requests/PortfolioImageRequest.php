@@ -24,8 +24,10 @@ class PortfolioImageRequest extends FormRequest
     public function rules()
     {
         return [
+
             'title'=>'required|unique:portfolio_images',
-            'source'=>'file|image'
+            'portfolio_category_id'=>'required|numeric',
+            'source'=>'required|file|image'
         ];
     }
 }

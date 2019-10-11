@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-use App\User;
+use App\Models\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ForgotPasswordController extends Controller
@@ -28,7 +28,7 @@ class ForgotPasswordController extends Controller
 
         switch ($response) {
             case Password::RESET_LINK_SENT:
-                flash('Password Reset link has been sent to your mail id')->success();
+                flash('Password Reset link has been sent to your adress mail')->success();
                 return redirect()->back()->with('status', 'No User Is asoociated with this account');
                 
             case Password::INVALID_USER:
@@ -57,8 +57,8 @@ class ForgotPasswordController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
         \Auth::login($user, true);
-        flash('Your Password Updated Success Fully')->success();
+        session()->flash('message','Your Password Updated Successfully');
         
-        return redirect()->route('home');
+        return redirect()->to('/login');
     }
 }

@@ -1,4 +1,4 @@
-@extends('admin.layouts.layout-login')
+@extends('admin.layouts.layout-login-2')
 
 @section('scripts')
     <script src="/assets/admin/js/sessions/login.js"></script>
@@ -16,6 +16,6 @@
             <input type="password" class="form-control form-control-danger" placeholder="Enter Confirm password"
                    name="password_confirmation">
         </div>
-        <button class="btn btn-theme btn-full">Reset Password</button>
+        <button class="btn btn-login btn-full">Reset Password</button>
     </form>
 @stop
