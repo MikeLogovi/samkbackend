@@ -16,7 +16,8 @@ class PartnerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $this->authorize('create',App\Models\Partner::class);
         $partners=Partner::orderBy('updated_at','DESC')->get();
         return view('admin.partners.index',compact('partners'));
     }
@@ -45,11 +46,17 @@ class PartnerController extends Controller
      */
     public function store(PartnerFormRequest $request)
     {
+        $this->authorize('create',Partner::class);
         if($request->hasfile('source')&& $request->file('source')->isValid()){
             $path=fileUpload($request->file('source'),'partners');
-            Partner::create(['name'=>$request->name,'source'=>$path]);
+            $user=Auth::user();
+            $user->partners()->create(['name'=>$request->name,'source'=>$path]);
             event(new PartnerCrud('Partner created successfully'));
         }
+        if($user->role!='admin'){
+            $user->is_now_partner=true;
+            $user->save();
+         }
         return redirect(route('partners.index'));
     }
 
@@ -83,7 +90,8 @@ class PartnerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Partner $partner)
-    {
+    {   
+        $this->authorize('update',$partner);
         if(!empty($request->name)){
             $partner->name=$request->name;
          }
@@ -105,8 +113,9 @@ class PartnerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $partner=Partner::find($id);
+    {   
+        $partner=Partner::findOrFail($id);
+        $this->authorize('delete',$partner);
         Storage::disk('public')->delete($partner->source);
         Partner::destroy($id);
         event(new PartnerCrud('Partner deleted successfully'));

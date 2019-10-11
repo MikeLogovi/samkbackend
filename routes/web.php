@@ -14,7 +14,7 @@ Route::get('/', [
 
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
-Route::post('email/resend', 'Auth\VerificationControl@resend')->name('verification.resend');
+Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
  //Portfolio categories
 
@@ -33,7 +33,7 @@ Route::post('email/resend', 'Auth\VerificationControl@resend')->name('verificati
 
 Route::group([
     'prefix' => 'admin',
-//    'middleware' => 'admin'
+     'middleware' => 'admin'
 ], function () {
     //Sliders
    
@@ -404,6 +404,8 @@ Route::group([
     ]);
 
     Route::resource('users', 'UsersController');
+    Route::get('/users/give_permissions/{user}','UsersController@givePermissions')->name('users.give_permissions');
+    Route::get('/users/disable_permissions/{user}','UsersController@deletePermissions')->name('users.disable_permissions');
 
     // Settings
     //----------------------------------

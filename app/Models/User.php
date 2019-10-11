@@ -1,5 +1,7 @@
 <?php
 namespace App\Models;
+use App\Models\Comment;
+use App\Models\Partner;
 use App\Models\Traits\SlugRoutable;
 use Illuminate\Auth\MustVerifyEmail as Verification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -41,5 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail
         $password = $request->password;
         
         return (\Auth::attempt(['email' => $email, 'password' => $password], $remember));
+    }
+
+    public function teams(){
+        return $this->hasMany(App\Models\Team::class);
+    }
+    public function comments(){
+        return $this->hasMany(App\Models\Comment::class);
+    }
+    public function partners(){
+        return $this->hasMany(App\Models\Partner::class);
     }
 }

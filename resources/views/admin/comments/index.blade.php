@@ -9,9 +9,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12 mb-4">
-                       
+                       @if(!Auth::user()->is_now_commentator)
                         <a class="btn btn-success btn-sm" href="{{ route('comments.create')}}"><i class="fa fa-plus"></i>CREATE NEW COMMENT</a><br/><br/>
-
+                       @endif
                         <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -38,9 +38,13 @@
                                  <td>{{$comment->updated_at}}</td>
                                  <td>
                                      <div class=row>
+                                         @can('update',$comment)
                                          <div class=col-xs-4>
                                             <a class="btn btn-warning" href="{{ route('comments.edit',$comment)}}"><i class="icon-fa icon-fa-plus"></i>UPDATE</a>
-                                         </div><br><br>
+                                         </div>
+                                         @endcan
+                                         &nbsp;&nbsp;
+                                         @can('delete',$comment)
                                          <div class=col-xs-4 col-xs-offest-2>
                                             <form method='POST' action="{{route('comments.delete',$comment->id)}}">
                                                     {{csrf_field()}}
@@ -48,6 +52,7 @@
                                                 <button type='submit' class="btn btn-danger"><i class="icon-fa icon-fa-trash"></i>DELETE</button>
                                             </form>                                           
                                          </div>
+                                         @endcan
                                      </div>  
                                  </td>
                              </tr>

@@ -30,7 +30,7 @@ class TeamPolicy
      */
     public function view(User $user, Team $team)
     {
-        //
+
     }
 
     /**
@@ -54,7 +54,7 @@ class TeamPolicy
      */
     public function update(User $user, Team $team)
     {
-        //
+        return ($user->role==config('samk.roles')[0] && Auth::id == $team->user->id) || $user->role=='admin';
     }
 
     /**
@@ -66,7 +66,7 @@ class TeamPolicy
      */
     public function delete(User $user, Team $team)
     {
-        //
+        return ($user->role==config('samk.roles')[0] && Auth::id == $team->user->id) || $user->role=='admin';
     }
 
     /**

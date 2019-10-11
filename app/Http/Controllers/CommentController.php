@@ -19,6 +19,7 @@ class CommentController extends Controller
      */
     public function index()
     {   
+        $this->authorize('create',Comment::class);
         $comments=Comment::orderBy('updated_at','DESC')->get();
         return view('admin.comments.index',compact('comments'));
     }
@@ -49,12 +50,17 @@ class CommentController extends Controller
         $this->authorize('create',Comment::class);
         if($request->hasfile('source')&& $request->file('source')->isValid()){
             $path=fileUpload($request->file('source'),'comments');
-            Comment::create(['author_name'=>$request->author_name,
-                             'author_function'=>$request->author_function,
-                             'comment'=>$request->comment,
-                             'source'=>$path]);
+            $user=Auth::user();
+            $user->comments()->create(['author_name'=>$request->author_name,
+                                        'author_function'=>$request->author_function,
+                                        'comment'=>$request->comment,
+                                        'source'=>$path]);
             event(new CommentCrud('Comment created successfully'));
         }
+        if($user->role!='admin'){
+            $user->is_now_partner=true;
+            $user->save();
+         }
         return redirect(route('comments.index'));
     }
 
@@ -77,6 +83,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {  
+        $this->authorize('update',$comment);
         return view('admin.comments.edit',compact('comment'));
     }
 
@@ -89,6 +96,8 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+        $this->authorize('update',$comment);
+
         if(!empty($request->author_name)){
             $comment->author_name=$request->author_name;
          }
@@ -120,6 +129,7 @@ class CommentController extends Controller
     public function destroy($id)
     {
         $comment=Comment::find($id);
+        $this->authorize('delete',$comment);
         Storage::disk('public')->delete($comment->source);
         Comment::destroy($id);
         event(new CommentCrud('Comment deleted successfully'));

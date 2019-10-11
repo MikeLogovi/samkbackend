@@ -6,6 +6,7 @@ use App\Events\TeamCrud;
 use App\Http\Requests\TeamFormRequest;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
@@ -17,6 +18,7 @@ class TeamController extends Controller
      */
     public function index()
     {   
+        $this->authorize('create',Team::class);
         $teams=Team::with('socialites')->orderBy('updated_at','desc')->get();
         return view('admin.teams.index',compact('teams'));
     }
@@ -44,11 +46,18 @@ class TeamController extends Controller
     public function store(TeamFormRequest $request)
     {   $index=0;
         $urls=$request->urls;
-        $path=fileUpload($request->file('source'),'teams'); 
+        $this->authorize('create',Team::class);
+        $path=fileUpload($request->file('source'),'teams');
+        $user=Auth::user(); 
         $team=Team::create(['name'=>$request->name,
                         'country'=>$request->country,
                         'description'=>$request->description,
+                        'user_id'=>Auth::user()->id,
                         'source'=>$path]);
+        if($user->role!='admin'){
+            $user->is_now_team_member=true;
+            $user->save();
+         }
         if($request->icons){
             foreach($request->icons as $icon){
                 $team->socialites()->create([
@@ -94,6 +103,7 @@ class TeamController extends Controller
      */
     public function update(Request $request, Team $team)
     {
+        $this->authorize('update',$team);
         if(!empty($request->name)){
             $team->name=$request->name;
         }
@@ -123,6 +133,7 @@ class TeamController extends Controller
     public function destroy($id)
     {
         $team=Team::find($id);
+        $this->authorize('delete',$team);
         Storage::disk('public')->delete($team->source);
         Team::destroy($id);
         event(new TeamCrud('Team deleted successfully'));

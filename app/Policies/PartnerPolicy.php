@@ -54,7 +54,7 @@ class PartnerPolicy
      */
     public function update(User $user, Partner $partner)
     {
-        //
+        return ($user->role==config('samk.roles')[2] && Auth::id == $partner->user->id) || $user->role=='admin';
     }
 
     /**
@@ -66,7 +66,7 @@ class PartnerPolicy
      */
     public function delete(User $user, Partner $partner)
     {
-        //
+        return ($user->role==config('samk.roles')[2] && Auth::id == $partner->user->id) || $user->role=='admin';
     }
 
     /**

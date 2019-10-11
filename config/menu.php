@@ -208,8 +208,8 @@ return [
         [
             'roles'=>['admin',"Team's member","Commentator","Partner"],
             'title' => 'Profile',
-            'link' => '/admin/partners',
-            'active' => '/admin/partners*',
+            'link' => '/admin/users',
+            'active' => '/admin/users*',
             'icon' =>"fa fa-user",
             
         ],

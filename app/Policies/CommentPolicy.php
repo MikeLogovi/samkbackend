@@ -30,7 +30,6 @@ class CommentPolicy
      */
     public function view(User $user, Comment $comment)
     {    
-         return $user->role==config('samk.roles')[1] || $user->role=='admin';
     }
 
     /**
@@ -53,7 +52,7 @@ class CommentPolicy
      */
     public function update(User $user, Comment $comment)
     {
-        //return ($user->role==config('samk.roles')[1] && $comment->author_id==$user->id)|| $user->role=='admin';
+        return ($user->role==config('samk.roles')[1] && Auth::id == $comment->user->id) || $user->role=='admin';
 
     }
 
@@ -66,7 +65,7 @@ class CommentPolicy
      */
     public function delete(User $user, Comment $comment)
     {
-        //return ($user->role==config('samk.roles')[1] && $comment->author_id==$user->id)|| $user->role=='admin';
+        return ($user->role==config('samk.roles')[1] && Auth::id == $comment->user->id) || $user->role=='admin';
     }
 
     /**

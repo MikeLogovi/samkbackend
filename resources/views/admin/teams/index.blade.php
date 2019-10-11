@@ -9,7 +9,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12 mb-4">
-                       <a class="btn btn-success" href="{{ route('teams.create')}}"><i class="icon-fa icon-fa-plus"></i>CREATE NEW TEAM'S MEMBER</a><br/><br/>
+                        @if(!Auth::user()->is_now_team_member)
+                          <a class="btn btn-success" href="{{ route('teams.create')}}"><i class="icon-fa icon-fa-plus"></i>CREATE NEW TEAM'S MEMBER</a><br/><br/>
+                       @endif
                        <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -40,9 +42,12 @@
                                  <td>{{$team->updated_at}}</td>
                                  <td>
                                      <div class=row>
+                                         @can('update',$team)
                                          <div class=col-xs-4>
                                             <a class="btn btn-warning" href="{{ route('teams.edit',$team)}}"><i class="icon-fa icon-fa-pencil"></i>UPDATE</a>
-                                         </div><br><br>
+                                         </div>
+                                         @endcan<br><br>
+                                         @can('delete',$team)
                                          <div class=col-xs-4 col-xs-offest-2>
                                             <form method='POST' action="{{route('teams.delete',$team->id)}}">
                                                     {{csrf_field()}}
@@ -50,6 +55,7 @@
                                                 <button type='submit' class="btn btn-danger"><i class="icon-fa icon-fa-trash"></i>DELETE</button>
                                             </form>                                           
                                          </div>
+                                         @endcan
                                      </div>  
                                  </td>
                              </tr>

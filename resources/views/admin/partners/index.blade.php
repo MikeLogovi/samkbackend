@@ -9,8 +9,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12 mb-4">
-                       <a class="btn btn-success" href="{{ route('partners.create')}}"><i class="icon-fa icon-fa-plus"></i>CREATE NEW PARTNER</a><br/><br/>
-                       <div class="table-responsive">
+                        @if(!Auth::user()->is_now_partner)
+                         <a class="btn btn-success" href="{{ route('partners.create')}}"><i class="icon-fa icon-fa-plus"></i>CREATE NEW PARTNER</a><br/><br/>
+                        @endif   
+                      <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -31,9 +33,13 @@
                                  <td>{!! nl2br(e($partner->description)) !!}</td>
                                  <td>
                                      <div class=row>
+                                         @can('update',$partner)
                                          <div class=col-xs-6>
                                             <a class="btn btn-warning" href="{{ route('partners.edit',$partner)}}"><i class="icon-fa icon-fa-pencil"></i>UPDATE</a>
-                                         </div>&nbsp;&nbsp;
+                                         </div>
+                                         @endcan
+                                         &nbsp;&nbsp;
+                                         @can('delete',$partner)
                                          <div class=col-xs-6 >
                                             <form method='POST' action="{{route('partners.delete',$partner->id)}}">
                                                     {{csrf_field()}}
@@ -41,7 +47,8 @@
                                                 <button type='submit' class="btn btn-danger"><i class="icon-fa icon-fa-trash"></i>DELETE</button>
                                             </form>                                           
                                          </div>
-                                     </div>  
+                                        @endcan                                    
+                                    </div>  
                                  </td>
                              </tr>
                              @endforeach
