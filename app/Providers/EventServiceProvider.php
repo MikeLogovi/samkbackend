@@ -43,6 +43,14 @@ class EventServiceProvider extends ServiceProvider
          'App\Events\TeamCrud' => [
             'App\Listeners\TeamCrudListener',
         ],
+        //Mail
+         'App\Events\SendNewMail' => [
+            'App\Listeners\SendNewMailListener',
+        ],
+         'App\Events\MessageCreated' => [
+            'App\Listeners\MessageCreatedListener',
+        ],
+
          //website
          'App\Events\Socialite' => [
             'App\Listeners\Socialiteistener',

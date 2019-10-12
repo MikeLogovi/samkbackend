@@ -10,6 +10,7 @@ use App\Models\PortfolioImage;
 use App\Models\Slider;
 use App\Models\Socialite;
 use App\Models\Team;
+use App\Models\User;
 use App\Models\Video;
 use App\Observers\CommentObserver;
 use App\Observers\EventObserver;
@@ -19,6 +20,7 @@ use App\Observers\PortfolioImageObserver;
 use App\Observers\SliderObserver;
 use App\Observers\SocialiteObserver;
 use App\Observers\TeamObserver;
+use App\Observers\UserObserver;
 use App\Observers\VideoObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -50,5 +52,6 @@ class EloquentEventServiceProvider extends ServiceProvider
         Video::observe(VideoObserver::class);
         Team::observe(TeamObserver::class);
         Socialite::observe(SocialiteObserver::class);
+        User::observe(UserObserver::class);
     }
 }

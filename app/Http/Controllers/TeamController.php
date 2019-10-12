@@ -43,30 +43,21 @@ class TeamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TeamFormRequest $request)
-    {   $index=0;
-        $urls=$request->urls;
+    public function store(TeamFormRequest $request){   
         $this->authorize('create',Team::class);
         $path=fileUpload($request->file('source'),'teams');
         $user=Auth::user(); 
         $team=Team::create(['name'=>$request->name,
-                        'country'=>$request->country,
-                        'description'=>$request->description,
-                        'user_id'=>Auth::user()->id,
-                        'source'=>$path]);
+        'country'=>$request->country,
+        'description'=>$request->description,
+        'user_id'=>Auth::user()->id,
+        'source'=>$path]);
         if($user->role!='admin'){
             $user->is_now_team_member=true;
             $user->save();
-         }
-        if($request->icons){
-            foreach($request->icons as $icon){
-                $team->socialites()->create([
-                                'url'=>$urls[$index],
-                                'icon'=>$icon
-                ]);
-                $index++;
-            }
         }
+        createSocialites($request,$team);
+
         event(new TeamCrud('Member of team created successfully'));
         return redirect(route('teams.index'));
 
@@ -139,4 +130,10 @@ class TeamController extends Controller
         event(new TeamCrud('Team deleted successfully'));
         return redirect(route('teams.index'));
     }
+
+    public function addSocialites(Request $request,Team $team){
+         createSocialites($request,$team);
+         session()->flash('message','Operation done successfully');
+         return redirect()->back();
+     }
 }

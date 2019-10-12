@@ -118,13 +118,14 @@ Route::group([
             "destroy"=>"teams.delete"
         ],
     ]);
+    Route::post('/admin/teams/add_socialites/{team}','TeamController@addSocialites')->name('team.addSocialite');
     Route::resource('comments','CommentController',[
         "names"=>[
             "index"=>"comments.index",
             "store"=>"comments.store",
             "create"=>"comments.create",
             "edit"=>"comments.edit",
-            "up"=>"comments.up",
+            "update"=>"comments.update",
             "destroy"=>"comments.delete"
         ],
     ]);
@@ -134,12 +135,22 @@ Route::group([
             "store"=>"partners.store",
             "create"=>"partners.create",
             "edit"=>"partners.edit",
-            "up"=>"partners.up",
+            "update"=>"partners.up",
             "destroy"=>"partners.delete"
         ],
     ]);
-
-
+     Route::resource('messages','MessageController',[
+        "names"=>[
+            "index"=>"messages.index",
+            "store"=>"messages.store",
+            "create"=>"messages.create",
+            "edit"=>"messages.edit",
+            "update"=>"messages.update",
+            "destroy"=>"messages.delete"
+        ],
+    ]);
+  // Message responses
+   Route::post('/responses/{message}','ResponseController@sendResponse')->name('response.send');
 
 
 
@@ -150,7 +161,7 @@ Route::group([
         'as' => 'admin.dashboard', 'uses' => 'DashboardController@index'
     ]);
 
-    Route::get('/dashboard/basic', [
+    Route::get('/dashboard', [
         'as' => 'admin.dashboard.basic', 'uses' => 'DashboardController@basic'
     ]);
 
@@ -406,7 +417,7 @@ Route::group([
     Route::resource('users', 'UsersController');
     Route::get('/users/give_permissions/{user}','UsersController@givePermissions')->name('users.give_permissions');
     Route::get('/users/disable_permissions/{user}','UsersController@deletePermissions')->name('users.disable_permissions');
-
+    Route::get('/users/delete_picture/{user}','UsersController@deletePicture')->name('userPicture.delete');
     // Settings
     //----------------------------------
 

@@ -215,7 +215,6 @@
                             </div>
                             <div class="col-sm-6">
                                 <h5 class="section-semi-title">Styled Modals</h5>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#primaryModal">Primary</button>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#successModal">Success</button>
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#dangerModal">Danger</button>
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#infoModal">Info</button>

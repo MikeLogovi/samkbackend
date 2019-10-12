@@ -2,10 +2,10 @@
     @foreach(config('menu.sidebar') as $menu)
       @if(in_array(Auth::user()->role,$menu['roles']))
         <li class="{{set_active($menu['active'],'active')}}">
-            @if(!$menu['title']=='Profile')
+            @if(!($menu['title']=='Profile'))
             <a href="{{url($menu['link'])}}"><i class="{{$menu['icon']}}"></i> {{$menu['title']}} @if(isset($menu['children']))<span class="icon-fa arrow icon-fa-fw"></span> @endif</a>
             @else
-            <a href="{{url($menu['link'])}}/{{Auth::user()->id}}"><i class="{{$menu['icon']}}"></i> {{$menu['title']}} @if(isset($menu['children']))<span class="icon-fa arrow icon-fa-fw"></span> @endif</a>
+            <a href="{{url($menu['link'])}}/{{Auth::user()->slug}}"><i class="{{$menu['icon']}}"></i> {{$menu['title']}} @if(isset($menu['children']))<span class="icon-fa arrow icon-fa-fw"></span> @endif</a>
             @endif
             @if(isset($menu['children']))
                 <ul aria-expanded="true" class="collapse">

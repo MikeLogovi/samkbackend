@@ -2,27 +2,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 class UsersController extends Controller
 {
     public function index()
     {   
-        $this->authorize('create',User::class);
+        //$this->authorize('create',User::class);
 
         $users = User::orderBy('updated_at','DESC')->get();
 
         return view('admin.users.index')->with('users', $users);
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        
-        $user = User::findOrFail($id);
-        
-
         return view('admin.users.show')->with('user', $user);
     }
-
+    public function update(Request $request,User $user){
+        
+        if(!empty($request->name)){
+       
+            $user->name=$request->name;
+        }
+         if(!empty($request->source) && $request->hasFile('source') && $request->file('source')->isValid()){
+             $this->validate($request,[
+                 'source'=>'file|image'
+             ]);
+             if($user->picture)
+                $path=unlinkAndUpload($request->file('source'),$user->picture,'users');
+             else
+                $path=fileUpload($request->file('source'),'portfolio');
+             $user->picture=$path;
+         }
+         
+         $user->save();
+         session()->flash('message','User updated successfully');
+        return redirect()->back();
+    }
     public function destroy($id)
     {   
         $user = User::findOrFail($id);
@@ -43,5 +60,14 @@ class UsersController extends Controller
         $user->save();
         session()->flash('message',"The".$user->role.' '.$user->name." can't have his publications available now");
         return redirect(route('users.index'));
+    }
+    public function deletePicture(User $user){
+         if($user->picture){
+             Storage::disk('public')->delete($user->picture);
+         }
+        $user->picture=null;
+        $user->save();
+        session()->flash('message',"The".$user->role.' '.$user->name." 's picture has been deleted successfully");
+        return redirect()->back();
     }
 }

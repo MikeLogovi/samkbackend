@@ -1,5 +1,16 @@
 <?php
 
+use App\Models\Comment;
+use App\Models\Event;
+use App\Models\Message;
+use App\Models\Partner;
+use App\Models\PortfolioCategory;
+use App\Models\PortfolioImage;
+use App\Models\Slider;
+use App\Models\Team;
+use App\Models\User;
+use App\Models\Video;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
   if(!function_exists('fileUpload')){
@@ -36,6 +47,21 @@ use Illuminate\Support\Facades\Storage;
             return config('samk.status.upcoming');;
       }
   }
+  if(!function_exists('createSocialites')){
+      function createSocialites($request,$team){
+        $index=0;
+        $urls=$request->urls;
+        if($request->icons){
+            foreach($request->icons as $icon){
+                $team->socialites()->create([
+                                'url'=>$urls[$index],
+                                'icon'=>$icon
+                ]);
+                $index++;
+            }
+        }
+      }
+  }
   if(!function_exists('getStatusClass')){
     function getStatusClass($status){
       if($status==config('samk.status.passed'))
@@ -45,4 +71,104 @@ use Illuminate\Support\Facades\Storage;
       else
           return "info";
     }
+}
+
+if(!function_exists('initializeData')){
+   function initializeData(){
+        $comments=Cache::remember('comments',now()->addMinutes(1),function(){
+              return Comment::all();
+         });
+         $events=Cache::remember('events',now()->addMinutes(1),function(){
+               return Event::all();
+         });
+         $messages=Cache::remember('messages',now()->addMinutes(1),function(){
+              return Message::all();
+         });
+         $partners=Cache::remember('partners',now()->addMinutes(1),function(){
+              return Partner::all();
+         });
+         $portfolioCategories=Cache::remember('portfolioCategories',now()->addMinutes(1),function(){
+              return PortfolioCategory::all();
+         });
+         $portfolioImages=Cache::remember('portfolioImages',now()->addMinutes(1),function(){
+              return PortfolioImage::all();
+         });
+         $sliders=Cache::remember('Sliders',now()->addMinutes(1),function(){
+              return Slider::all();
+         });
+          $teams=Cache::remember('teams',now()->addMinutes(1),function(){
+              return Team::all();
+         });
+          $users=Cache::remember('users',now()->addMinutes(1),function(){
+              return User::all();
+         });
+        $videos=Cache::remember('users',now()->addMinutes(1),function(){
+              return Video::all();
+         });
+
+        $data=[
+            [
+                'title'=>'USERS',
+                'value'=>$users->count(),
+                'icon'=>'icon-fa fa-user',
+                'color'=>'#1E88E5'
+            ],
+            [
+                'title'=>"TEAM'S MEMBERS",
+                'value'=>$teams->count(),
+                'icon'=>'icon-fa fa-user-circle',
+                'color'=>'##3E2723'
+            ],
+             [
+                'title'=>"PORTFOLIO'S CATEGORY",
+                'value'=>$portfolioCategories->count(),
+                'icon'=>'icon-fa fa-object-group',
+                'color'=>'#651FFF'
+            ],
+            [
+                'title'=>"VIDEOS",
+                'value'=>$sliders->count(),
+                'icon'=>'icon-fa fa-video-camera',
+                'color'=>'#8E24AA'
+            ],
+             [
+                'title'=>"PORTFOLIO'S IMAGE",
+                'value'=>$portfolioImages->count(),
+                'icon'=>'icon-fa fa-picture-o',
+                'color'=>'#E91E63'
+            ],
+            [
+                'title'=>"SLIDERS",
+                'value'=>$sliders->count(),
+                'icon'=>'icon-fa fa-sliders',
+                'color'=>'#26C6DA'
+            ],
+            [
+                'title'=>'COMMENTS',
+                'value'=>$comments->count(),
+                'icon'=>'icon-fa fa-comment',
+                'color'=>'#3949AB'
+            ],
+            [
+                'title'=>'PARTNERS',
+                'value'=>$partners->count(),
+                'icon'=>'icon-fa fa-handshake-o',
+                'color'=>'#388E3C'
+            ],
+             [
+                'title'=>'EVENTS',
+                'value'=>$events->count(),
+                'icon'=>'icon-fa fa-cc',
+                'color'=>'#EF6C00'
+            ],
+             [
+                'title'=>'MESSAGES',
+                'value'=>$messages->count(),
+                'icon'=>'icon-fa fa-envelope-o',
+                'color'=>'#546E7A'
+            ]
+             
+        ];
+    return $data;
+   }
 }

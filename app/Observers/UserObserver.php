@@ -14,7 +14,7 @@ class UserObserver
      */
     public function creating(User $user)
     {
-        $user->slug=$user->name;
+        $user->slug=str_slug($user->name);
     }
 
     /**
@@ -25,7 +25,7 @@ class UserObserver
      */
     public function updating(User $user)
     {
-        $user->slug=$user->name;
+        $user->slug=str_slug($user->name);
     }
 
     /**

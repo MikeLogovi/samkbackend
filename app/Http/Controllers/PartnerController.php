@@ -17,7 +17,7 @@ class PartnerController extends Controller
      */
     public function index()
     {   
-        $this->authorize('create',App\Models\Partner::class);
+       // $this->authorize('create',App\Models\Partner::class);
         $partners=Partner::orderBy('updated_at','DESC')->get();
         return view('admin.partners.index',compact('partners'));
     }

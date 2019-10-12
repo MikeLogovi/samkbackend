@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Socialite;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class SocialiteController extends Controller
@@ -32,32 +34,11 @@ class SocialiteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$team)
     {
-        //
+        $
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -66,9 +47,13 @@ class SocialiteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Socialite $socialite)
     {
-        //
+        if(!empty($request->url))
+            $socialite->url=$request->url;
+        session()->flash('message','Socialite updated successfully');
+        retur redirect()->back();
+        
     }
 
     /**
@@ -79,6 +64,8 @@ class SocialiteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Socialite::destroy($id);
+        session()->flash('message','Socialite deleted successfully');
+        return redirect()->back();
     }
 }

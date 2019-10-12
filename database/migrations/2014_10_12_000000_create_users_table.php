@@ -15,10 +15,10 @@ class CreateUsersTable extends Migration
         Schema::create('users', function(Blueprint $table){
             $table->increments('id');
             $table->string('name');
-            $table->boolean('is_now_team_member')->default('false');
-            $table->boolean('is_now_partner')->default('false');
-            $table->boolean('is_now_commentator')->default('false');
-            $table->boolean('creations_can_be_published')->default('false');
+            $table->boolean('is_now_team_member')->default(false);
+            $table->boolean('is_now_partner')->default(false);
+            $table->boolean('is_now_commentator')->default(false);
+            $table->boolean('creations_can_be_published')->default(false);
             $table->string('picture')->nullable();
             $table->string('slug');
             $table->string('email')->unique();

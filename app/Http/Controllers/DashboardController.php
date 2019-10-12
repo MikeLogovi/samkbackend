@@ -9,8 +9,9 @@ class DashboardController extends Controller
     }
 
     public function basic() 
-    {
-         return view('admin.dashboard.basic');
+    {    
+         $bigData=initializeData();
+         return view('admin.dashboard.basic',compact('bigData'));
     }
 
     public function ecommerce() 

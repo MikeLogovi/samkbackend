@@ -33,14 +33,19 @@
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div class="avatar-container">
-                                            <img src="{{$user->picture ?? '/assets/admin/img/avatars/anonyme.png'}}" alt="Admin Avatar" class="img-fluid">
+                                            @if($user->picture!=null)
+                                            <img src="{{asset('/storage/'.$user->picture)}}" alt="Admin Avatar" class="img-fluid">
+                                           @else
+                                           <img src="/assets/admin/img/avatars/anonyme.png" alt="Admin Avatar" class="img-fluid">
+                                           @endif
                                             </div>
                                         </div>
                                         <div class="col-sm-9">
                                             <h4>{{$user->name}}</h4>
-                                            <p class="detail-row"><i class="icon-fa icon-fa-envelope-o"></i> {{$user->email}}</p>
-                                             <a href="#" class="btn btn-bg btn-info" style='text-align:center;display:inline-block;width:200px'>{{ucfirst($user->role)}</a>
+                                            <p class="detail-row"><i class="icon-fa icon-fa-envelope-o"></i> {{$user->email}}<small class="text-muted">(Unchangeable)</small></p>
+                                             <button class="btn btn-bg btn-info" style='text-align:center;display:inline-block;width:200px'>{{ucfirst($user->role)}}</button>
                                         </div>
+
                                     </div>    
                                  </div>
 
@@ -59,14 +64,22 @@
                                 @endif
                             </div>
                            
-                          
-                            <div class="form-group">
-                                <label for="source" class="custom-input">User's brand image</label>
-                                <input type="file" class="form-control-file fileInput dd-none" name="source" id="source" >
-                                @if($errors->has('source'))
-                                    <small class="text-danger">
-                                    {{$errors->first('source')}}
-                                    </small>
+                           <div class="row">
+                              <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="source" class="custom-input">User's brand image</label>
+                                        <input type="file" class="form-control-file fileInput dd-none" name="source" id="source" >
+                                        @if($errors->has('source'))
+                                            <small class="text-danger">
+                                            {{$errors->first('source')}}
+                                            </small>
+                                        @endif
+                                    </div>
+                                </div>
+                                @if($user->picture!=null)
+                                <div class="col-sm-4">
+                                    <a href="{{route('userPicture.delete',$user)}}" class="btn btn-danger">DELETE PICTURE</a>
+                                </div>
                                 @endif
                             </div>
                             @include('partials/form_button',['color'=>'success'])

@@ -18,27 +18,10 @@ return [
     'sidebar' => [
         [   
             'title' => 'Dashboard',
-            'link' => '#',
+            'link' => 'admin/dashboard/',
             'active' => 'admin/dashboard*',
             'icon' => 'icon-fa icon-fa-dashboard',
             'roles'=>['admin',"Team's member","Commentator","Partner"],
-            'children' => [
-                [
-                    'title' => 'Basic',
-                    'link' => '/admin/dashboard/basic',
-                    'active' => 'admin/dashboard/basic',
-                ],
-                [
-                    'title' => 'Ecommerce',
-                    'link' => '/admin/dashboard/ecommerce',
-                    'active' => 'admin/dashboard/ecommerce',
-                ],
-                [
-                    'title' => 'Finance',
-                    'link' => '/admin/dashboard/finance',
-                    'active' => 'admin/dashboard/finance',
-                ]
-            ]
         ],
         [
             'title' => 'Sliders',
@@ -179,7 +162,7 @@ return [
                     'active' => '/admin/partners*',
                 ],
                 [
-                    'title' => 'partners list',
+                    'title' => 'Partners list',
                     'link' => '/admin/partners',
                     'active' => '/admin/partners*',
                 ],
@@ -205,6 +188,15 @@ return [
                 ],
             ]
         ],
+         [
+            'roles'=>['admin'],
+            'title' => 'Messages',
+            'link' => '/admin/messages',
+            'active' => '/admin/messages*',
+            'icon' =>"fa fa-envelope-o",
+            
+        ],
+
         [
             'roles'=>['admin',"Team's member","Commentator","Partner"],
             'title' => 'Profile',
