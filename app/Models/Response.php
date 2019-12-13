@@ -9,6 +9,6 @@ class Response extends Model
 {
     public $fillable=['message_id','content'];
     public function message(){
-    	retun $this->belongsTo(Message::class);
+    	return $this->belongsTo(Message::class);
     } 
 }

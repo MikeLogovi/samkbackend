@@ -7,7 +7,7 @@ use App\Models\Response;
 use Faker\Generator as Faker;
 
 $factory->define(Response::class, function (Faker $faker) {
-    $message=factory(Message::class,10)->create();
+    $message=factory(Message::class)->create();
     return [
         'message_id'=>$message->id,
         'content'=>$faker->text

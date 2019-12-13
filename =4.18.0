@@ -1,0 +1,8 @@
++ eslint@3.19.0
+added 1 package from 9 contributors, removed 15 packages, updated 3 packages and audited 19833 packages in 20.961s
+
+2 packages are looking for funding
+  run `npm fund` for details
+
+found 491 vulnerabilities (20 low, 48 moderate, 423 high)
+  run `npm audit fix` to fix them, or `npm audit` for details

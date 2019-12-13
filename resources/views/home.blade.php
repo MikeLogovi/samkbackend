@@ -21,3 +21,4 @@
     </div>
 </div>
 @endsection
+© 2019 GitHub, Inc.
