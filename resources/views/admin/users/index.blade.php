@@ -44,7 +44,12 @@
                                     @endif
                                     <a href="{{route('users.show',$user)}}" class="btn btn-default btn-sm"><i class="icon-fa icon-fa-search"></i> View</a>
                                     
-                                    <a href="{{route('users.destroy',$user->id)}}" class="btn btn-danger btn-sm" data-token="{{csrf_token()}}" data-delete > <i class="icon-fa icon-fa-trash"></i> Delete</a></td>
+                                    <form method="POST" action="{{route('users.destroy',$user)}}" style="display:inline">
+                                        <button class="btn btn-danger btn-sm" type="submit"> <i class="icon-fa icon-fa-trash"></i> Delete</button>
+                                        {{csrf_field()}}
+                                        {{method_field('DELETE')}}
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                             <tbody>

@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Storage;
   if(!function_exists('getEventStatus')){
       function getEventStatus($dateEvent){
         $dateEvent=new Datetime($dateEvent);
-        $dateNow=new Datetime(date('d/m/Y'));
+        $dateNow=new Datetime(date('d-m-Y'));
         if($dateEvent<$dateNow)
             return config('samk.status.passed');
         elseif($dateEvent==$dateNow)

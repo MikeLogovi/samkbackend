@@ -40,10 +40,9 @@ class UsersController extends Controller
          session()->flash('message','User updated successfully');
         return redirect()->back();
     }
-    public function destroy($id)
+    public function destroy(User $user)
     {   
-        $user = User::findOrFail($id);
-        $this->authorize('delete',$user);
+        $this->deletePicture($user);
         $user->delete();
         session()->flash('message','User Deleted successfully');
 
@@ -55,13 +54,13 @@ class UsersController extends Controller
         session()->flash('message',"The".$user->role.' '.$user->name." will have now his publications available");
         return redirect(route('users.index'));
     }
-    public function deletePermissions(User $user){
+    public function disablePermissions(User $user){
         $user->creations_can_be_published=false;
         $user->save();
         session()->flash('message',"The".$user->role.' '.$user->name." can't have his publications available now");
         return redirect(route('users.index'));
     }
-    public function deletePicture(User $user){
+    private function deletePicture(User $user){
          if($user->picture){
              Storage::disk('public')->delete($user->picture);
          }

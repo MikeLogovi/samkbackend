@@ -116,6 +116,8 @@ Route::group([
         ]);
     });
     Route::resource('users','UsersController');
+    Route::get('admin/users/give_permission/{user}','UsersController@givePermissions')->name('users.give_permissions');
+    Route::get('admin/users/disable_permission/{user}','UsersController@disablePermissions')->name('users.disable_permissions');
 
 });
 
