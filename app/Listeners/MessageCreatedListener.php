@@ -5,7 +5,8 @@ namespace App\Listeners;
 use App\Events\MessageCreated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use App\Notifications\NewMessage;
+use Illuminate\Support\Facades\Notification;
 class MessageCreatedListener
 {
     /**
@@ -26,11 +27,8 @@ class MessageCreatedListener
      */
     public function handle(MessageCreated $event)
     {
-        $mail=(new MailMessage)
-            ->subject(Lang::getFromJson('Hello'.$event->message->author_name.'.This is our answer from your last query'))
-            ->line(Lang::getFromJson($event->response->content))
-            ->line(Lang::getFromJson('Send with heart by SAMK TRAVEL & TOUR'));
-         Mail::to($event->message->author_email)->send($mail);
-         session()->flash('message',$event->notification);
+        session()->flash('message',$event->notification);
+       
+         Notification::route('mail',config('mail.from.address'))->notify(new NewMessage($event));
     }
 }

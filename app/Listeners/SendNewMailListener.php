@@ -6,7 +6,8 @@ use App\Events\SendNewMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\InteractsWithQueue;
-
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ResponseMessage;
 class SendNewMailListener implements ShouldQueue
 {
     /**
@@ -27,12 +28,8 @@ class SendNewMailListener implements ShouldQueue
      */
     public function handle(SendNewMail $event)
     {
-            $mail=(new MailMessage)
-            ->subject(Lang::getFromJson('Hello'.$event->message->author_name.'.'))
-            ->line(Lang::getFromJson('Your query has been sent correctly,we will respond you very soon.'))
-            ->line(Lang::getFromJson('Send with heart by SAMK TRAVEL & TOUR'));
-            Mail::to($event->message->author_email)->send($mail);
             session()->flash('message',$event->notification);
-
-    }
+            Notification::route('mail', $event->message->author_email)
+            ->notify(new ResponseMessage($event));
+   }
 }

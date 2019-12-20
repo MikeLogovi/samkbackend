@@ -25,7 +25,7 @@ class MessageFormRequest extends FormRequest
     {
         return [
             'author_name'=>'required',
-            'author_email'=>'require|email',
+            'author_email'=>'required|email',
             'content'=>'required'
         ];
     }

@@ -23,7 +23,7 @@
                                  <div class="modal fade" id="modal{{$message->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                          <form method="post" action="{{route('messages.index',$message)}}">
+                                          <form method="post" action="{{route('response.send',$message)}}">
                                           {{csrf_field()}}
                                             <div class="modal-header bg-success">
                                                 <h5 class="modal-title" id="exampleModalLabel" style="color:white">Reply to {{$message->author_name}}</h5>

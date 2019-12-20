@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MessageFormRequest;
 use App\Models\Message;
 use Illuminate\Http\Request;
-
+use App\Events\MessageCreated;
 class MessageController extends Controller
 {
     /**

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
    public $fillable=['author_name','author_email','content'];
-   public function messages(){
+   public function responses(){
    	return $this->hasMany(Response::class);
    }
 }
