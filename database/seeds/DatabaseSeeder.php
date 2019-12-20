@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VideosTableSeeder::class);
         $this->call(MessagesTableSeeder::class);
         $this->call(ResponsesTableSeeder::class);
+        $this->call(NewslettingTableSeeder::class);
         //$this->call(WebsiteTableSeeder::class);
     }
 }

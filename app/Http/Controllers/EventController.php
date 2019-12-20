@@ -45,12 +45,12 @@ class EventController extends Controller
     {  
          if($request->hasfile('source')&& $request->file('source')->isValid()){
             $path=fileUpload($request->file('source'),'events');
-            Event::create(  ['name'=>$request->name,
+            $myEvent=Event::create(  ['name'=>$request->name,
                             'description'=>$request->description,
                             'event_date'=>$request->event_date,
                             'source'=>$path,
                             'price'=>$request->price]);
-            event(new EventCrud('Event created successfully'));
+            event(new EventCrud('Event created successfully',$myEvent));
          }
        
         return redirect(route('events.index'));

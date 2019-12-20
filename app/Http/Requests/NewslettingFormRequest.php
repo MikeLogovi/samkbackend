@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-class ResponseFormRequest extends FormRequest
+
+class NewslettingFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class ResponseFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->role=='admin';
+        return true;
     }
 
     /**
@@ -24,8 +24,7 @@ class ResponseFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'content'=>'required'
+            'email'=>'required|unique:newletters'
         ];
     }
 }
-c

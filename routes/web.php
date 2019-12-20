@@ -93,6 +93,9 @@ Route::group([
             "destroy"=>"messages.delete"
         ],
     ]);
+    //Newsletter
+    Route::resource('newletters','NewsletterController');
+
   // Message responses
    Route::post('/responses/{message}','ResponseController@sendResponse')->name('response.send');
 

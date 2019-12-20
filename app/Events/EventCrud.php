@@ -14,14 +14,16 @@ class EventCrud implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $message;
+    public $myEvent;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message,$myEvent)
     {
         $this->message=$message;
+        $this->myEvent=$myEvent;
     }
 
     /**

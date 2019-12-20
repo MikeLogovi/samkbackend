@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Auth\Access\HandlesAuthorization;
-
+use Illuminate\Support\Facades\Auth;
 class CommentPolicy
 {
     use HandlesAuthorization;
@@ -40,7 +40,7 @@ class CommentPolicy
      */
     public function create(User $user)
     {
-        return $user->role==config('samk.roles')[1] || $user->role=='admin';
+        return ($user->role==config('samk.roles')[1]&& Auth()->is_now_commentator==true)|| $user->role=='admin';
     }
 
     /**
@@ -52,7 +52,7 @@ class CommentPolicy
      */
     public function update(User $user, Comment $comment)
     {
-        return ($user->role==config('samk.roles')[1] && Auth::id == $comment->user->id) || $user->role=='admin';
+        return (($user->role==config('samk.roles')[1]&& Auth()->is_now_commentator==true) && Auth::id == $comment->user->id ) || $user->role=='admin';
 
     }
 
@@ -65,7 +65,7 @@ class CommentPolicy
      */
     public function delete(User $user, Comment $comment)
     {
-        return ($user->role==config('samk.roles')[1] && Auth::id == $comment->user->id) || $user->role=='admin';
+        return (($user->role==config('samk.roles')[1]&& Auth()->is_now_commentator==true) && Auth::id == $comment->user->id) || $user->role=='admin';
     }
 
     /**
