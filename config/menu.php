@@ -23,7 +23,7 @@ return [
             'icon' => 'icon-fa icon-fa-dashboard',
             'roles'=>['admin',"Team's member","Commentator","Partner"],
         ],
-        [
+        /*[
             'title' => 'Sliders',
             'link' => '#',
             'active' => '/admin/sliders*',
@@ -42,7 +42,7 @@ return [
                     'active' => '/admin/sliders*',
                 ],
             ]
-        ],
+        ],*/
         [
             
             'title' => 'Portfolio',
@@ -213,7 +213,22 @@ return [
             'icon' =>"fa fa-user-circle",
             
         ],
-       
+        [
+            'title' => 'Newsletters',
+            'link' => '#',
+            'active' => '/admin/newsletters*',
+            'icon' =>"fa fa-sliders",
+            'roles'=>['admin'],
+
+            'children'=>[
+                
+                [
+                    'title' => 'Emails list',
+                    'link' => '/admin/newsletters',
+                    'active' => '/admin/newsletters*',
+                ],
+            ]
+        ],
        
         [   
             'title' => 'Users',

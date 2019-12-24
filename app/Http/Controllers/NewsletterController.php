@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Newsletting;
+use App\Http\Requests\NewslettingFormRequest;
+use Illuminate\Support\Facades\DB;
 class NewsletterController extends Controller
 {
     /**
@@ -12,8 +14,8 @@ class NewsletterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   $newsletter=Newsletting::all();
-        return view('admin.newsletters.index',compact('newsletters'))
+    {   $newsletters=Newsletting::all();
+        return view('admin.newsletters.index',compact('newsletters'));
     }
 
     /**
@@ -78,9 +80,10 @@ class NewsletterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Newsletting $newsletting)
-    {
-        $newsletting->delete();
+    public function destroy($newsletting)
+    {  
+       
+        DB::table('newslettings')->where('id',$newsletting)->delete();
         session()->flash('message','Email deleted successfully');
         return redirect()->back();
     }

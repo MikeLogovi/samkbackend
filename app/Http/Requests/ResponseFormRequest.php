@@ -28,4 +28,3 @@ class ResponseFormRequest extends FormRequest
         ];
     }
 }
-c

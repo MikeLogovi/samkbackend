@@ -26,8 +26,8 @@
                             </thead>
                             @foreach($newsletters as $newsletter)
                             <tr>
-                                <td>{{$user->email}}</td>
-                                <td>{{$user->created_at}}</td>
+                                <td>{{$newsletter->email}}</td>
+                                <td>{{$newsletter->created_at}}</td>
                                 <td>
                                     <form method="POST" action="{{route('newsletters.destroy',$newsletter)}}" style="display:inline">
                                         <button class="btn btn-danger btn-sm" type="submit"> <i class="icon-fa icon-fa-trash"></i> Delete</button>

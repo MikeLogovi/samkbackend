@@ -530,6 +530,7 @@ class ComposerStaticInit1fe32a2eefb6ade6b8357171da6318c1
         'CreateFailedJobsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_25_073709_create_failed_jobs_table.php',
         'CreateJobsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_25_073654_create_jobs_table.php',
         'CreateMessagesTable' => __DIR__ . '/../..' . '/database/migrations/2019_10_12_021730_create_messages_table.php',
+        'CreateNewlettersTable' => __DIR__ . '/../..' . '/database/migrations/2019_12_24_192720_create_newletters_table.php',
         'CreateNewslettersTable' => __DIR__ . '/../..' . '/database/migrations/2019_12_20_100720_create_newsletters_table.php',
         'CreateNewslettingsTable' => __DIR__ . '/../..' . '/database/migrations/2019_12_20_101947_create_newslettings_table.php',
         'CreatePartnersTable' => __DIR__ . '/../..' . '/database/migrations/2019_10_06_034238_create_partners_table.php',

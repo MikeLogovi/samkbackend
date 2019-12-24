@@ -94,7 +94,7 @@ Route::group([
         ],
     ]);
     //Newsletter
-    Route::resource('newletters','NewsletterController');
+    Route::resource('newsletters','NewsletterController');
 
   // Message responses
    Route::post('/responses/{message}','ResponseController@sendResponse')->name('response.send');

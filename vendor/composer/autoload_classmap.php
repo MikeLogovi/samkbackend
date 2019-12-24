@@ -21,6 +21,7 @@ return array(
     'CreateFailedJobsTable' => $baseDir . '/database/migrations/2017_07_25_073709_create_failed_jobs_table.php',
     'CreateJobsTable' => $baseDir . '/database/migrations/2017_07_25_073654_create_jobs_table.php',
     'CreateMessagesTable' => $baseDir . '/database/migrations/2019_10_12_021730_create_messages_table.php',
+    'CreateNewlettersTable' => $baseDir . '/database/migrations/2019_12_24_192720_create_newletters_table.php',
     'CreateNewslettersTable' => $baseDir . '/database/migrations/2019_12_20_100720_create_newsletters_table.php',
     'CreateNewslettingsTable' => $baseDir . '/database/migrations/2019_12_20_101947_create_newslettings_table.php',
     'CreatePartnersTable' => $baseDir . '/database/migrations/2019_10_06_034238_create_partners_table.php',

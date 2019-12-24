@@ -7,6 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use App\Models\Newsletting;
+use App\Notifications\PreventNewsletter;
 class EventCrudListener
 {
     /**
@@ -26,9 +27,9 @@ class EventCrudListener
      * @return void
      */
     public function handle(EventCrud $event)
-    {   $nesletters=Newsletting::all();
+    {   $newsletters=Newsletting::all();
         foreach($newsletters as $newsletter){
-            Notification::route('mail',$newsletter->email)->markdown('admn.mail.newsletters',$event->myEvent);
+            Notification::route('mail',$newsletter->email)->notify(new PreventNewsletter($event));
         }
         session()->flash('message',$event->message);
     }

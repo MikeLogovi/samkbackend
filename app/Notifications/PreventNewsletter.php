@@ -10,15 +10,15 @@ use Illuminate\Notifications\Messages\MailMessage;
 class PreventNewsletter extends Notification
 {
     use Queueable;
-
+    public $event;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($event)
     {
-        //
+        $this->event=$event;
     }
 
     /**
@@ -39,8 +39,8 @@ class PreventNewsletter extends Notification
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    {
-        return (new MailMessage)->markdown('mail.prevent.newsletters');
+    {   $myEvent=$this->event->myEvent;
+        return (new MailMessage)->subject('New event with SAM K TRAVEL & TOUR')->markdown('admin.mail.newsletters',compact('myEvent'));
     }
 
     /**
