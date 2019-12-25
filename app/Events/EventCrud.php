@@ -33,6 +33,11 @@ class EventCrud implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('event_crud');
+      return ['my-channel'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'event-crud';
     }
 }

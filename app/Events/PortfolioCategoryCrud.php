@@ -32,6 +32,11 @@ class PortfolioCategoryCrud implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('portfolio_category_crud');
+      return ['my-channel'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'portfolio-category-crud';
     }
 }

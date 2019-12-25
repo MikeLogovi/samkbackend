@@ -32,6 +32,11 @@ class PartnerCrud
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('partner_crud');
+      return ['my-channel'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'partner-crud';
     }
 }

@@ -32,6 +32,11 @@ class CommentCrud implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('comment_crud');
+      return ['my-channel'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'comment-crud';
     }
 }

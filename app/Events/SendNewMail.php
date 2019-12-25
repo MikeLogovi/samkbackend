@@ -35,6 +35,6 @@ class SendNewMail
      */
     public function broadcastOn()
     {
-        return new Channel('channel-name');
+        return new Channel('my-channel');
     }
 }

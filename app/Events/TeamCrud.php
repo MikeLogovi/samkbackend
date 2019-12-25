@@ -32,6 +32,11 @@ class TeamCrud
      */
     public function broadcastOn()
     {
-        return new Channel('team_crud');
+      return ['my-channel'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'team-crud';
     }
 }

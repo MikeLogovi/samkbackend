@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class VideoCrud
+class VideoCrud implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -33,6 +33,11 @@ class VideoCrud
      */
     public function broadcastOn()
     {
-        return new Channel('video_crud');
+      return ['my-channel'];
     }
+
+  public function broadcastAs()
+  {
+      return 'video-crud';
+  }
 }

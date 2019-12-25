@@ -31,6 +31,11 @@ class Socialite
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+      return ['my-channel'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'socialite-crud';
     }
 }

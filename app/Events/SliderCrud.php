@@ -31,6 +31,11 @@ class SliderCrud implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('slider_crud');
+      return ['my-channel'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'slider-crud';
     }
 }

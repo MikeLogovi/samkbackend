@@ -32,6 +32,11 @@ class PortfolioImageCrud
      */
     public function broadcastOn()
     {
-        return new Channel('portfolio_image_crud');
+      return ['my-channel'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'portfolio-image-crud';
     }
 }

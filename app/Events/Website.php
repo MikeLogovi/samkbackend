@@ -33,6 +33,11 @@ class Website
      */
     public function broadcastOn()
     {
-        return new Channel('website_crud');
+      return ['my-channel'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'website-crud';
     }
 }
