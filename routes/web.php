@@ -40,7 +40,7 @@ Route::group([
     ]);
     Route::resource('portfolio_images','PortfolioImageController',[
         "names"=>[
-            "destroy"=>"images.delete",
+            "destroy"=>"portfolio_images.delete",
         ],
         'only'=>[
             'index',

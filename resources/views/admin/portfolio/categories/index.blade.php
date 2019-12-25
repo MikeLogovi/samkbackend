@@ -53,7 +53,7 @@
                                             <a class="btn btn-warning" href="{{ route('portfolio_images.edit',[$portfolioCategory,$portfolio_image])}}"><i class="icon-fa icon-fa-pencil"></i>UPDATE</a>
                                          </div><br><br>
                                          <div class=col-xs-4 col-xs-offest-2>
-                                            <form style="display:inline" method='POST' action="{{route('images.delete',$portfolio_image->id)}}">
+                                            <form style="display:inline" method='POST' action="{{route('portfolio_images.delete',$portfolio_image->id)}}">
                                                     {{csrf_field()}}
                                                     {{method_field('DELETE')}}
                                                 <button type='submit' class="btn btn-danger"><i class="icon-fa icon-fa-trash"></i>DELETE</button>

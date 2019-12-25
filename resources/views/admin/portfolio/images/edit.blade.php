@@ -5,7 +5,7 @@
         @include("partials/page_header_breadcrumb",
          ['pageTitle'=>'Update image',
          'titleColor'=>'#43A047',
-          'routeUrl'=>'images.index',
+          'routeUrl'=>'portfolio_images.index',
           'routeParentName'=>'Image',
           'routeName'=>'Image Update',
           ])

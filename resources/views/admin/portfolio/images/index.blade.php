@@ -4,13 +4,13 @@
 @section('content')
     <div class="main-content">
         <div class="page-header">
-            <h3 class="page-title">Portfolio's Images</h3>
+            <h3 class="page-title">Portfolio's images</h3>
         </div>
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12 mb-4">
-                       <a class="btn btn-success" href="{{ route('images.create')}}"><i class="icon-fa icon-fa-plus"></i>CREATE NEW IMAGE</a><br/><br/>
+                       <a class="btn btn-success" href="{{ route('portfolio_images.create')}}"><i class="icon-fa icon-fa-plus"></i>CREATE NEW IMAGE</a><br/><br/>
                        <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -23,7 +23,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                             @foreach($portfolioImages as $portfolioImage)
+                             @foreach( $portfolioImages as $portfolioImage)
                              <tr>
                                  <td>
                                        <img src="{{asset('/storage/'.$portfolioImage->source)}}" width="250" height="150">
@@ -37,7 +37,7 @@
                                             <a class="btn btn-warning" href="{{ route('portfolio_images.edit',[$portfolioImage->portfolio_category,$portfolioImage])}}"><i class="icon-fa icon-fa-pencil"></i>UPDATE</a>
                                          </div>&nbsp;&nbsp;
                                          <div class=col-xs-4 col-xs-offest-2>
-                                            <form method='POST' action="{{route('images.delete',$portfolioImage->id)}}">
+                                            <form method='POST' action="{{route('portfolio_images.delete',$portfolioImage->id)}}">
                                                     {{csrf_field()}}
                                                     {{method_field('DELETE')}}
                                                 <button type='submit' class="btn btn-danger"><i class="icon-fa icon-fa-trash"></i>DELETE</button>
