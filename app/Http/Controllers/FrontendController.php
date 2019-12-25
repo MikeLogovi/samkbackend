@@ -5,6 +5,6 @@ class FrontendController extends Controller
 {
     public function home()
     {
-        return view('home');
+        return redirect(route('/login'));
     }
 }
