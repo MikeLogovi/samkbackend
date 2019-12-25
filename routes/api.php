@@ -24,5 +24,6 @@ Route::get('/teams','TeamController@indexApi');
 Route::get('/events','EventController@indexApi');
 Route::get('/images','PortfolioCategoryController@indexApi');
 Route::get('/videos','VideoController@indexApi');
+Route::get('/gallery','GalleryController@indexApi');
 Route::post('/messages/storeMessage','MessageController@store');
 Route::post('/newsletters/storeEmail','NewsletterController@store');
